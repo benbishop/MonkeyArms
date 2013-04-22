@@ -1,0 +1,10 @@
+*.DS_Store
+*/bin/*
+/MonkeyArms/MonkeyArmsFramework/bin/
+/MonkeyArms/MonkeyArmsFramework/obj/
+/MonkeyArms/MonkeyArmsTests/bin/Debug/
+/MonkeyArms/MonkeyArmsTests/bin/
+/MonkeyArms/MonkeyArms.userprefs
+*.test-cache
+*/test-results/*
+/MonkeyArms/MonkeyArmsTests/test-results/
