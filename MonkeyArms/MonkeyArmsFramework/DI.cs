@@ -2,21 +2,18 @@ using TinyIoC;
 
 namespace MonkeyArms
 {
-	public class AppContext
+	public static class DI
 	{
-		private TinyIoCContainer Injector;
+		private static TinyIoCContainer Injector = new TinyIoCContainer ();
 
-		public AppContext(){
-			Injector = new TinyIoCContainer ();
-		}
 
-		public void MapSingleton<TSingleton> ()
+		public static void MapSingleton<TSingleton> ()
 			where TSingleton :class
 		{
 			Injector.Register<TSingleton> ().AsSingleton ();
 		}
 		
-		public void MapClassToInterface<TInterface, TImplementation> ()
+		public static void MapClassToInterface<TInterface, TImplementation> ()
 			where TInterface : class
 			where TImplementation : class, TInterface
 			{
@@ -24,7 +21,7 @@ namespace MonkeyArms
 				
 			}
 		
-		public TGet Get<TGet> ()
+		public static TGet Get<TGet> ()
 			where TGet : class
 		{
 			return Injector.Resolve<TGet> ();
