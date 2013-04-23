@@ -45,6 +45,7 @@
     <Compile Include="Actor.cs" />
     <Compile Include="Invoker.cs" />
     <Compile Include="Command.cs" />
+    <Compile Include="Mediator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

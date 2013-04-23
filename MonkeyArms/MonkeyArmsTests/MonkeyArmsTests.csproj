@@ -38,6 +38,7 @@
     <Compile Include="DITests.cs" />
     <Compile Include="ActorTests.cs" />
     <Compile Include="InvokerTests.cs" />
+    <Compile Include="MediatorTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
