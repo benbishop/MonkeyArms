@@ -35,6 +35,9 @@
     <Reference Include="TinyIOC">
       <HintPath>..\..\DLL\TinyIOC.dll</HintPath>
     </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>..\..\DLL\mscorlib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
