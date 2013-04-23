@@ -13,9 +13,9 @@ namespace iOSTests
 		{
 			DI.MapSingleton<TestClassToInject> ();
 
-			TestActor actor = new TestActor ();
+//			TestActor actor = new TestActor ();
 
-			Debug.WriteLine ("test");
+//			Debug.WriteLine ("test");
 			Assert.True (true);
 		}
 
