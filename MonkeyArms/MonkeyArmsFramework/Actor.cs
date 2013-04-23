@@ -27,7 +27,7 @@ namespace MonkeyArms
 						var mi = typeof(DI).GetMethod ("Get", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
 						var gmi = mi.MakeGenericMethod (propertyInfo.PropertyType);
 						//assign the retrieved item from DI to this
-						propertyInfo.SetValue (this, gmi.Invoke (DI.Injector, null));
+						propertyInfo.SetValue (this, gmi.Invoke (null, null));
 					}
 				}
 			}

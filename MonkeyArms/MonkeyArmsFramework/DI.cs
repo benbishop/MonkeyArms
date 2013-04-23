@@ -5,7 +5,7 @@ namespace MonkeyArms
 {
 	public static class DI
 	{
-		public static TinyIoCContainer Injector = new TinyIoCContainer ();
+		private static TinyIoCContainer Injector = new TinyIoCContainer ();
 
 
 		public static void MapSingleton<TSingleton> ()

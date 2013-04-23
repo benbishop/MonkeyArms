@@ -6,10 +6,10 @@ using System.Diagnostics;
 namespace iOSTests
 {
 	[TestFixture]
-    public class ActorTest
+	public class ActorTest
 	{
 		[Test]
-        public void Pass ()
+		public void Pass ()
 		{
 			DI.MapSingleton<TestClassToInject> ();
 
@@ -58,4 +58,8 @@ namespace iOSTests
 
 		}
 	}
+
+
+
+
 }
