@@ -1,19 +1,21 @@
 using System;
 using NUnit.Framework;
 using MonkeyArms;
+using System.Diagnostics;
 
 namespace MonkeyArmsTests
 {
 	[TestFixture()]
-	public class InvokerTests
+	public class ActorTests
 	{
-		protected Invoker TestInvoker = new Invoker();
-
 		[Test()]
 		public void TestCase ()
 		{
 
+
 		}
+
+
 	}
 }
 

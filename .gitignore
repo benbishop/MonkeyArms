@@ -8,3 +8,5 @@
 *.test-cache
 */test-results/*
 /MonkeyArms/MonkeyArmsTests/test-results/
+/MonkeyArms/iOSTests/obj/
+/MonkeyArms/iOSTests/bin/
