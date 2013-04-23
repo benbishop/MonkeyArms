@@ -23,6 +23,22 @@ namespace MonkeyArmsTests
 			Assert.True((DI.RequestMediator(target) as TestMediator).RegisterInvoked);
 		}
 
+
+		[Test(Description="Assert RequestMediator throws exception when Target has already been mapped")]
+		public void TestRequestMediatorThrowsExceptionIfTargetAlreadyMapped ()
+		{
+
+			Assert.Throws<ArgumentException>(TryRequestingAMediatorForTargetTwice);
+		}
+
+		void TryRequestingAMediatorForTargetTwice()
+		{
+			TestMediatorTarget target = new TestMediatorTarget ();
+			DI.RequestMediator (target);
+			DI.RequestMediator (target);
+		}
+
+
 		[Test(Description="Assert RequestMediator throws exception when Target type has not been mapped")]
 		public void TestRequestMediatorThrowsExceptionIfMediatorNotRegistered ()
 		{

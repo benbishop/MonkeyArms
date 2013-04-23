@@ -55,12 +55,20 @@ namespace MonkeyArms
 
 		public static Mediator RequestMediator(IMediatorTarget target)
 		{
+
+			if(MediatorAssignments.ContainsKey(target)){
+				throw(new ArgumentException("Target already has Mediator assigned to it."));
+			}
+
 			var targetType = target.GetType ();
+
+
 
 			//if we don't have this class type specifically mapped
 			if (!ClassMediatorMappings.ContainsKey (targetType)) {
 				//checking to see if this target has a super class that has a mediator assigned to it
 				foreach(Type classType in ClassMediatorMappings.Keys){
+					//TODO: See if this would be better targetType.BaseType
 					if(targetType.IsSubclassOf(classType)){
 						return CreateMediator (target, classType);
 					}
@@ -84,8 +92,10 @@ namespace MonkeyArms
 
 		public static void DestroyMediator(IMediatorTarget target)
 		{
-			MediatorAssignments [target].Unregister ();
-			MediatorAssignments.Remove(target);
+			if(MediatorAssignments.ContainsKey(target)){
+				MediatorAssignments [target].Unregister ();
+				MediatorAssignments.Remove(target);
+			}
 		}
 
 
