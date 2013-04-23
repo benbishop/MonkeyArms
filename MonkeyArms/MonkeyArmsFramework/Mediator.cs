@@ -2,7 +2,7 @@ using System;
 
 namespace MonkeyArms
 {
-	public class Mediator
+	public class Mediator:Actor
 	{
 
 
