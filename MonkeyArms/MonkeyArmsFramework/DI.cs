@@ -12,9 +12,10 @@ namespace MonkeyArms
 			where TSingleton :class
 		{
 			Injector.Register<TSingleton> ().AsSingleton ();
-
-
 		}
+
+		//TODO: MapSingletonOf<Inteface, Class>()
+		//TODO: UnmapSingleton<Class>()
 
 		public static void MapClassToInterface<TInterface, TImplementation> ()
 			where TInterface : class
@@ -22,8 +23,12 @@ namespace MonkeyArms
 		{
 			Injector.Register<TInterface, TImplementation> ();
 
-				
 		}
+
+
+
+		//TODO: UnmapClassFromInterface<TInterface, TImplementation>()
+
 
 		public static void MapCommandToInvoker<TCommand, TInvoker> ()
 			where TCommand : Command, new()
@@ -39,40 +44,42 @@ namespace MonkeyArms
 
 		}
 
+		//TODO: UnmapCommandFromInvoker<TCommand, TInvoker>()
+
 		/*
 		 * Mediator mappings
 		 */
 
-		private static Dictionary<Type, Type> ClassMediatorMappings = new Dictionary<Type,Type>(); 
-		private static Dictionary<IMediatorTarget, Mediator> MediatorAssignments = new Dictionary<IMediatorTarget, Mediator>();
+		private static Dictionary<Type, Type> ClassMediatorMappings = new Dictionary<Type,Type> ();
+		private static Dictionary<IMediatorTarget, Mediator> MediatorAssignments = new Dictionary<IMediatorTarget, Mediator> ();
 
 		public static void MapMediatorToClass<TMediator, TClass> ()
 			where TMediator:Mediator
 			where TClass : class
 		{
-			ClassMediatorMappings[typeof(TClass)] = typeof(TMediator);
+			ClassMediatorMappings [typeof(TClass)] = typeof(TMediator);
 		}
 
-		public static Mediator RequestMediator(IMediatorTarget target)
+		//TODO: Add UnmapMediatorFromClass
+
+		public static Mediator RequestMediator (IMediatorTarget target)
 		{
 			if (!ClassMediatorMappings.ContainsKey (target.GetType ())) {
 				throw(new ArgumentException ("Target type does not have mediator type mapped for it. Invoke MapMediatorToClass first."));
 			}
 
-			Mediator m = (Mediator)Activator.CreateInstance(ClassMediatorMappings[target.GetType()], target);
+			Mediator m = (Mediator)Activator.CreateInstance (ClassMediatorMappings [target.GetType ()], target);
 			MediatorAssignments [target] = m;
 			m.Register ();
 			return m;
 
 		}
 
-		public static void DestroyMediator(IMediatorTarget target)
+		public static void DestroyMediator (IMediatorTarget target)
 		{
 			MediatorAssignments [target].Unregister ();
-			MediatorAssignments.Remove(target);
+			MediatorAssignments.Remove (target);
 		}
-
-
 		/*
 		 * Standard Get method
 		 */ 

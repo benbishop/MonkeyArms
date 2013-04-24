@@ -4,6 +4,8 @@ namespace MonkeyArms
 {
 	public class Command:Actor
 	{
+		//TODO: Figure out if we need Detain/Release mechanism for Async operations
+
 		public Command ():base()
 		{
 

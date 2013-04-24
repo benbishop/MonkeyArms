@@ -10,7 +10,7 @@ namespace MonkeyArms
 		public Invoker ()
 		{
 		}
-
+		//TODO: Change this to take a Type so Commands are disposed after executing
 		public void AddCommand(Command command)
 		{
 			if (Commands.IndexOf (command) == -1) {
