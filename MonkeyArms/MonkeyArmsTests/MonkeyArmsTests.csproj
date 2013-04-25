@@ -9,6 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MonkeyArmsTests</RootNamespace>
     <AssemblyName>MonkeyArmsTests</AssemblyName>
+    <ReleaseVersion>.012</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
