@@ -8,14 +8,23 @@ namespace MonkeyArmsTests
 	[TestFixture()]
 	public class ActorTests
 	{
-		[Test(Description="Assert classes get injected into Actor")]
+		[Test(Description="Assert classes get injected into Actor prop")]
 		public void TestActorInjectsPropsFromDI ()
 		{
 			DI.MapSingleton<TestClassToInject> ();
 			TestActor actor = new TestActor ();
 			Assert.NotNull (actor.TestVar);
+
 		}
 
+
+		[Test(Description="Assert classes get injected into Actor field")]
+		public void TestActorInjectsFieldsFromDI ()
+		{
+			DI.MapSingleton<TestPM> ();
+			TestActor actor = new TestActor ();
+			Assert.NotNull (actor.PM);
+		}
 		/*
 		 * Test Classes
 		 * 
@@ -46,7 +55,7 @@ namespace MonkeyArmsTests
 			public TestClassToInject TestVar{ get; set; }
 
 			[Inject]
-			public TestPM PM { get; set; }
+			public TestPM PM;
 
 			public TestActor ():base()
 			{
