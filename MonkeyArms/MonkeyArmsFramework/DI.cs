@@ -8,12 +8,22 @@ namespace MonkeyArms
 	{
 		private static TinyIoCContainer Injector = new TinyIoCContainer ();
 
+		private static Dictionary<Type, object> Instances = new Dictionary<Type, object>();
+
 		public static void MapSingleton<TSingleton> ()
 			where TSingleton :class
 		{
 			Injector.Register<TSingleton> ().AsSingleton ();
+		}
 
+		public static void MapInstanceToSingleton<TSingleton>(object instance)
+		{
+			Instances [typeof(TSingleton)] = instance;
+		}
 
+		public static void UnMapInstanceFromSingleton<TSingleton>()
+		{
+			Instances.Remove (typeof(TSingleton));
 		}
 
 		public static void MapClassToInterface<TInterface, TImplementation> ()
@@ -107,6 +117,11 @@ namespace MonkeyArms
 		public static TGet Get<TGet> ()
 			where TGet : class
 		{
+
+			if (Instances.ContainsKey (typeof(TGet))) {
+				return Instances [typeof(TGet)] as TGet;
+			}
+
 			return Injector.Resolve<TGet> ();
 		}
 	}

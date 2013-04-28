@@ -45,8 +45,33 @@ namespace MonkeyArmsTests
 
 		}
 
+		[Test(Description="Assert MapInstanceToSingleton returns instance of TestPM passed to it")]
+		public void TestMapInstanceToSingleTon()
+		{
+			DI.MapSingleton<TestPM> ();
+			var pm = new TestPM ();
+			DI.MapInstanceToSingleton<TestPM> (pm);
+			Assert.AreEqual (pm, DI.Get<TestPM> ());
+		}
 	
+		[Test(Description="Assert MapInstanceToSingleton does not return previous instance of TestPM passed to it")]
+		public void TestMapInstanceToSingleTonDoesNotReturnPreviousSignleton()
+		{
+			DI.MapSingleton<TestPM> ();
+			var origPM = DI.Get<TestPM> ();
+			DI.MapInstanceToSingleton<TestPM> (new TestPM());
+			Assert.AreNotEqual (origPM, DI.Get<TestPM> ());
+		}
 
+		[Test(Description="Assert MapInstanceToSingleton does not return previous instance of TestPM passed to it after UnMapInstanceFromSingleton is invoked")]
+		public void TestMapInstanceToSingleTonDoesNotReturnPreviousSignletonAferUnMapInstanceToSingletonIsInvoiked()
+		{
+
+			var origPM = new TestPM ();
+			DI.MapInstanceToSingleton<TestPM> (new TestPM());
+			DI.UnMapInstanceFromSingleton<TestPM> ();
+			Assert.AreNotEqual (origPM, DI.Get<TestPM> ());
+		}
 
 	}
 	/*
