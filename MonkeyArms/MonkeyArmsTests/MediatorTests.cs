@@ -69,6 +69,15 @@ namespace MonkeyArmsTests
 			Assert.True (m.UnregisterInvoked);
 		}
 
+		[Test(Description="Assert Mediator Injections work")]
+		public void TestInjectionsWorkWithMediators()
+		{
+			DI.MapMediatorToClass<TestMediator, TestMediatorTarget> ();
+			TestMediatorTarget target = new TestMediatorTarget ();
+			var m = DI.RequestMediator(target) as TestMediator;
+			Assert.NotNull (m.PM);
+		}
+
 		/*
 		 * Test Classes
 		 */
@@ -76,6 +85,12 @@ namespace MonkeyArmsTests
 		public interface ITestTargetInteface{
 			void DoSomething();
 			void DoAnotherThing();
+		}
+
+		public class TestPM{
+			public TestPM(){
+
+			}
 		}
 
 		public class TestMediatorTarget:IMediatorTarget,ITestTargetInteface{
@@ -100,6 +115,9 @@ namespace MonkeyArmsTests
 		}
 
 		public class TestMediator:Mediator{
+
+			[Inject]
+			public TestPM PM;
 
 			public bool RegisterInvoked = false;
 

@@ -2,7 +2,7 @@ using System;
 
 namespace MonkeyArms
 {
-	public class InjectAttribute : System.Attribute { }
+
 
 	public class Actor:IInjectingTarget
 	{

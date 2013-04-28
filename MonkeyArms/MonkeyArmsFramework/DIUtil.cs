@@ -3,6 +3,8 @@ using System.Reflection;
 
 namespace MonkeyArms
 {
+	public class InjectAttribute : System.Attribute { }
+
 	public class DIUtil
 	{
 		public DIUtil ()

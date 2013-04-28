@@ -34,6 +34,7 @@ namespace MonkeyArms
 			MapSingleton<TInvoker> ();
 			var invoker = DI.Get<TInvoker> ();
 			var command = new TCommand ();
+			DIUtil.InjectProps (command as IInjectingTarget);
 			invoker.AddCommand (command);
 
 
@@ -85,6 +86,7 @@ namespace MonkeyArms
 		static Mediator CreateMediator (IMediatorTarget target, Type targetType)
 		{
 			Mediator m = (Mediator)Activator.CreateInstance (ClassMediatorMappings [targetType], target);
+			DIUtil.InjectProps (m as IInjectingTarget);
 			MediatorAssignments [target] = m;
 			m.Register ();
 			return m;

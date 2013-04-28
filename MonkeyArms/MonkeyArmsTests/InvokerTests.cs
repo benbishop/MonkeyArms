@@ -26,11 +26,17 @@ namespace MonkeyArmsTests
 			Assert.True (Command2.Executed);
 		}
 
-
+	
 		/*
 		 * Test Classes
 		 * 
 		*/
+
+		public class TestViewModel{
+			public TestViewModel(){
+
+			}
+		}
 
 		public class TestInvoker:Invoker{
 			public TestInvoker():base()
@@ -40,6 +46,9 @@ namespace MonkeyArmsTests
 		}
 
 		public class TestCommand1:Command{
+
+			[Inject]
+			public TestViewModel VM;
 
 			public bool Executed = false;
 
