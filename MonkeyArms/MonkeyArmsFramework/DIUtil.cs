@@ -25,12 +25,18 @@ namespace MonkeyArms
 				object[] attrs = GetAttributes (target, memberInfo);
 
 				foreach (Attribute attr in attrs) {
+
+
 					if (attr is InjectAttribute) {
+
+
 						//retrieve injectable from DI
 						var mi = typeof(DI).GetMethod ("Get", BindingFlags.Static | BindingFlags.Public);
 
 						//getting method to get value to inject
 						MethodInfo methodInfo = GetMethodInfo (mi, memberInfo);
+
+
 						
 						//Checking if value was found
 						var valueToInject = methodInfo.Invoke (null, null);
