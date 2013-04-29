@@ -14,16 +14,29 @@ namespace MonkeyArmsTests
 
 
 
-		[Test(Description="Assert each command gets exectuted when Invoke is called")]
+		[Test(Description="Assert each command gets executed when Invoke is called")]
 		public void TestInvoke ()
 		{
-			Invoker.AddCommand (Command1);
-			Invoker.AddCommand (Command2);
+			DI.MapSingleton<TestViewModel> ();
+			Invoker.AddCommand<TestCommand1>();
+			Invoker.AddCommand<TestCommand2>();
+			Invoker.Invoke (new TestInvokerArgs("Hello World"));
 
-			Invoker.Invoke ();
+			Assert.True (DI.Get<TestViewModel>().Changed);
+			Assert.True (DI.Get<TestViewModel>().SomethingElseChanged);
 
-			Assert.True (Command1.Executed);
-			Assert.True (Command2.Executed);
+		}
+
+		[Test(Description="Assert invoker passes InvokerArgs payload")]
+		public void TestInvokerArgsBeingPassed ()
+		{
+			DI.MapSingleton<TestViewModel> ();
+			Invoker.AddCommand<TestCommand1>();
+			Invoker.Invoke (new TestInvokerArgs("Hello World"));
+
+			Assert.AreEqual("Hello World", DI.Get<TestViewModel>().Title);
+
+
 		}
 
 	
@@ -32,7 +45,29 @@ namespace MonkeyArmsTests
 		 * 
 		*/
 
+		public class TestInvokerArgs:InvokerArgs{
+
+			private string newTitle;
+
+			public string NewTitle {
+				get {
+					return newTitle;
+				}
+			}
+
+			public TestInvokerArgs(string title):base(){
+				newTitle = title;
+			}
+		}
+
 		public class TestViewModel{
+
+			public bool Changed = false;
+
+			public bool SomethingElseChanged = false;
+
+			public string Title;
+
 			public TestViewModel(){
 
 			}
@@ -50,8 +85,6 @@ namespace MonkeyArmsTests
 			[Inject]
 			public TestViewModel VM;
 
-			public bool Executed = false;
-
 			public TestCommand1():base(){
 
 			}
@@ -59,13 +92,15 @@ namespace MonkeyArmsTests
 			public override void Execute (InvokerArgs args)
 			{
 				base.Execute (args);
-				Executed = true;
+				VM.Changed = true;
+				VM.Title = (args as TestInvokerArgs).NewTitle;
 			}
 		}
 
 		public class TestCommand2:Command{
 
-			public bool Executed = false;
+			[Inject]
+			public TestViewModel VM;
 
 			public TestCommand2():base(){
 
@@ -74,7 +109,8 @@ namespace MonkeyArmsTests
 			public override void Execute (InvokerArgs args)
 			{
 				base.Execute (args);
-				Executed = true;
+				VM.SomethingElseChanged = true;
+
 			}
 		}
 	}

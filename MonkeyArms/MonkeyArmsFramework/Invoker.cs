@@ -7,30 +7,33 @@ namespace MonkeyArms
 	{
 		public event EventHandler Invoked = delegate {};
 
-		protected List<Command> Commands = new List<Command>();
+		protected List<Type> CommandTypes = new List<Type>();
 
 		public Invoker ()
 		{
 		}
-		//TODO: Change this to take a Type so Commands are disposed after executing
-		public void AddCommand(Command command)
+
+		public void AddCommand<TCommand>()
+			where TCommand:class
 		{
-			if (Commands.IndexOf (command) == -1) {
-				Commands.Add (command);
+			if (CommandTypes.IndexOf (typeof(TCommand)) == -1) {
+				CommandTypes.Add (typeof(TCommand));
 			}
 		}
 
-		public void RemoveCommand(Command command)
+		public void RemoveCommand(Type command)
 		{
-			if (Commands.IndexOf (command) != -1) {
-				Commands.Remove (command);
+			if (CommandTypes.IndexOf (command) != -1) {
+				CommandTypes.Remove (command);
 			}
 		}
 
 		public void Invoke(InvokerArgs args = null)
 		{
-			foreach (Command command in Commands) {
-				command.Execute (args);
+			foreach (Type command in CommandTypes) {
+				Command c = (Command)Activator.CreateInstance (command);
+				DIUtil.InjectProps (c);
+				c.Execute (args);
 			}
 
 			Invoked(this, new InvokedEventArgs(args));

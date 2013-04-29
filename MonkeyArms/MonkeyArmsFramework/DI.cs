@@ -44,16 +44,14 @@ namespace MonkeyArms
 		}
 
 		public static void MapCommandToInvoker<TCommand, TInvoker> ()
-			where TCommand : Command, new()
+			where TCommand : Command
 			where TInvoker : Invoker
 		{
 		
 
 			MapSingleton<TInvoker> ();
 			var invoker = DI.Get<TInvoker> ();
-			var command = new TCommand ();
-			DIUtil.InjectProps (command as IInjectingTarget);
-			invoker.AddCommand (command);
+			invoker.AddCommand <TCommand>();
 
 
 		}
