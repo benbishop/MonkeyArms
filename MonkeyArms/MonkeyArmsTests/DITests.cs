@@ -28,6 +28,18 @@ namespace MonkeyArmsTests
 			Assert.AreEqual (DI.Get<TestClass> (), DI.Get<TestClass> ());
 		}
 
+		[Test(Description="Assert when a class is registered as a Singleton and then unmapped as a Singleton a new instance is returned")]
+		public void TestUnMapSingletonWorksCorrectly ()
+		{
+			DI.MapSingleton<TestClass> ();
+			var origClass = DI.Get<TestClass> ();
+
+			DI.UnMapSingleton<TestClass> ();
+			var newClass = DI.Get<TestClass> ();
+
+			Assert.AreNotEqual (origClass, newClass);
+		}
+
 		[Test(Description="Assert when a class is registered via interface Get by interface returns correct class")]
 		public void TestRegisterInterface ()
 		{

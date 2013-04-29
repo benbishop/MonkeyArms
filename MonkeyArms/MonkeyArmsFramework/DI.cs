@@ -16,6 +16,12 @@ namespace MonkeyArms
 			Injector.Register<TSingleton> ().AsSingleton ();
 		}
 
+		public static void UnMapSingleton<TSingleton>()
+			where TSingleton :class
+		{
+			Injector.Register<TSingleton> ().AsMultiInstance();
+		}
+
 		public static void MapInstanceToSingleton<TSingleton>(object instance)
 		{
 			Instances [typeof(TSingleton)] = instance;
@@ -23,7 +29,9 @@ namespace MonkeyArms
 
 		public static void UnMapInstanceFromSingleton<TSingleton>()
 		{
-			Instances.Remove (typeof(TSingleton));
+			if(Instances.ContainsKey(typeof(TSingleton))){
+				Instances.Remove (typeof(TSingleton));
+			}
 		}
 
 		public static void MapClassToInterface<TInterface, TImplementation> ()
