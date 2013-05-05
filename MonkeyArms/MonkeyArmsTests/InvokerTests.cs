@@ -39,6 +39,34 @@ namespace MonkeyArmsTests
 
 		}
 
+		[Test(Description="Assert invoker calls Invoked event once Invoke complets")]
+		public void TestInvokerCallsInvoked ()
+		{
+			bool WasInvoked = false;
+			Invoker.Invoked += (object sender, EventArgs e) => {
+				WasInvoked = true;
+			};
+			Invoker.Invoke (new TestInvokerArgs("Hello World"));
+
+			Assert.IsTrue (WasInvoked);
+		}
+
+		[Test(Description="Assert an injected invoker calls Invoked event once Invoke complets")]
+		public void TestInjetedInvokerCallsInvoked ()
+		{
+			bool WasInvoked = false;
+			DI.MapSingleton<TestInvoker>();
+			DI.Get<TestInvoker>().Invoked += (object sender, EventArgs e) => {
+				WasInvoked = true;
+			};
+
+			DI.Get<TestInvoker>().Invoke (new TestInvokerArgs("Hello World"));
+
+			Assert.IsTrue (WasInvoked);
+
+
+		}
+
 	
 		/*
 		 * Test Classes

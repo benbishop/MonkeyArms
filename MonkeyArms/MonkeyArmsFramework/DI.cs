@@ -43,7 +43,7 @@ namespace MonkeyArms
 				
 		}
 
-		public static void MapCommandToInvoker<TCommand, TInvoker> ()
+		public static TInvoker MapCommandToInvoker<TCommand, TInvoker> ()
 			where TCommand : Command
 			where TInvoker : Invoker
 		{
@@ -53,7 +53,7 @@ namespace MonkeyArms
 			var invoker = DI.Get<TInvoker> ();
 			invoker.AddCommand <TCommand>();
 
-
+			return invoker;
 		}
 
 		/*
@@ -123,7 +123,8 @@ namespace MonkeyArms
 		public static TGet Get<TGet> ()
 			where TGet : class
 		{
-
+			var t = typeof(TGet);
+			Console.WriteLine ("TGet {0}", t);
 			if (Instances.ContainsKey (typeof(TGet))) {
 				return Instances [typeof(TGet)] as TGet;
 			}
