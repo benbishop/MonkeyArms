@@ -57,6 +57,15 @@ namespace MonkeyArmsTests
 
 		}
 
+		[Test(Description="Assert MapCommandToInvoker maps command to invoker and correctly executes command when invoker is inline invoked")]
+		public void TestMapCommandToInvokerInlineInvoke ()
+		{
+			DI.MapSingleton<TestPM> ();
+			DI.MapCommandToInvoker<TestCommand1, TestInvoker> ().Invoke();
+			Assert.True (DI.Get<TestPM> ().Executed);
+
+		}
+
 		[Test(Description="Assert MapInstanceToSingleton returns instance of TestPM passed to it")]
 		public void TestMapInstanceToSingleTon()
 		{
