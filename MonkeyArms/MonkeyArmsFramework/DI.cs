@@ -72,6 +72,9 @@ namespace MonkeyArms
 
 		public static Mediator RequestMediator(IMediatorTarget target)
 		{
+			if (target == null) {
+				throw(new ArgumentException("Null cannot be passed for IMediatorTarget"));
+			}
 
 			if(MediatorAssignments.ContainsKey(target)){
 				throw(new ArgumentException("Target already has Mediator assigned to it."));
