@@ -4,7 +4,15 @@ namespace MonkeyArms
 {
 	public class Command:IInjectingTarget
 	{
-		//TODO: Figure out if we need Detain/Release mechanism for Async operations
+ 
+		public event EventHandler Released = delegate{};
+
+		private bool detained = false;
+		public bool Detained{
+			get{
+				return detained;
+			}
+		}
 
 		public Command ()
 		{
@@ -15,6 +23,20 @@ namespace MonkeyArms
 		{
 
 		}
+
+
+		protected void Detain()
+		{
+			detained = true;
+		}
+
+		protected void Release()
+		{
+			detained = false;
+			Released(this, new EventArgs());
+
+		}
+
 	}
 }
 

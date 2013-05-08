@@ -1,6 +1,7 @@
 using TinyIoC;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics;
 
 namespace MonkeyArms
 {
@@ -38,12 +39,14 @@ namespace MonkeyArms
 			where TInterface : class
 			where TImplementation : class, TInterface
 		{
-			Injector.Register<TInterface, TImplementation> ();
+ 		
+				var type = typeof(TImplementation);
+				Injector.Register<TInterface, TImplementation> ();
 
 				
 		}
 
-		public static void MapCommandToInvoker<TCommand, TInvoker> ()
+		public static TInvoker MapCommandToInvoker<TCommand, TInvoker> ()
 			where TCommand : Command
 			where TInvoker : Invoker
 		{
@@ -53,7 +56,7 @@ namespace MonkeyArms
 			var invoker = DI.Get<TInvoker> ();
 			invoker.AddCommand <TCommand>();
 
-
+			return invoker;
 		}
 
 		/*
@@ -126,9 +129,16 @@ namespace MonkeyArms
 		public static TGet Get<TGet> ()
 			where TGet : class
 		{
-
+			//TODO: Look into inspecting constructor arguments
+			var t = typeof(TGet);
+			Console.WriteLine ("TGet {0}", t);
 			if (Instances.ContainsKey (typeof(TGet))) {
 				return Instances [typeof(TGet)] as TGet;
+			}
+
+			if(!Injector.CanResolve<TGet>()){
+				throw(new ArgumentException("Target type cannot be resolved: " + t.FullName));
+
 			}
 
 			return Injector.Resolve<TGet> ();

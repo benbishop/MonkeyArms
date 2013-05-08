@@ -44,7 +44,7 @@ namespace MonkeyArmsTests
 		public void TestRegisterInterface ()
 		{
 			DI.MapClassToInterface<ITestClass, TestClass> ();
-			Assert.IsNotNull (DI.Get<ITestClass> () as TestClass);
+			Assert.IsTrue (DI.Get<ITestClass> () is TestClass);
 		}
 
 		[Test(Description="Assert MapCommandToInvoker maps command to invoker and correctly executes command when invoker is invoked")]
@@ -53,6 +53,15 @@ namespace MonkeyArmsTests
 			DI.MapSingleton<TestPM> ();
 			DI.MapCommandToInvoker<TestCommand1, TestInvoker> ();
 			DI.Get<TestInvoker> ().Invoke ();
+			Assert.True (DI.Get<TestPM> ().Executed);
+
+		}
+
+		[Test(Description="Assert MapCommandToInvoker maps command to invoker and correctly executes command when invoker is inline invoked")]
+		public void TestMapCommandToInvokerInlineInvoke ()
+		{
+			DI.MapSingleton<TestPM> ();
+			DI.MapCommandToInvoker<TestCommand1, TestInvoker> ().Invoke();
 			Assert.True (DI.Get<TestPM> ().Executed);
 
 		}

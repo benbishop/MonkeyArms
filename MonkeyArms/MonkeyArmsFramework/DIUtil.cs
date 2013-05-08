@@ -24,6 +24,8 @@ namespace MonkeyArms
 
 				object[] attrs = GetAttributes (target, memberInfo);
 
+				//TODO: Look into adding a warning if an inject prop is private or protected
+
 				foreach (Attribute attr in attrs) {
 
 
