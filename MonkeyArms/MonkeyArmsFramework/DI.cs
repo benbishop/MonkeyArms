@@ -35,9 +35,9 @@ namespace MonkeyArms
 			}
 		}
 
-		public static void MapClassToInterface<TInterface, TImplementation> ()
-			where TInterface : class
+		public static void MapClassToInterface<TImplementation, TInterface> ()
 			where TImplementation : class, TInterface
+			where TInterface : class
 		{
  		
 				var type = typeof(TImplementation);
