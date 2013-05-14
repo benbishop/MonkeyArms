@@ -41,7 +41,7 @@ namespace MonkeyArms
 		{
  		
 				var type = typeof(TImplementation);
-				Injector.Register<TInterface, TImplementation> ();
+				Injector.Register<TInterface, TImplementation> ().AsMultiInstance();
 
 				
 		}
