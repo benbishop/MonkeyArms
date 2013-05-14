@@ -39,11 +39,7 @@ namespace MonkeyArms
 			where TImplementation : class, TInterface
 			where TInterface : class
 		{
- 		
-				var type = typeof(TImplementation);
-				Injector.Register<TInterface, TImplementation> ().AsMultiInstance();
-
-				
+ 			Injector.Register<TInterface, TImplementation> ().AsMultiInstance();	
 		}
 
 		public static TInvoker MapCommandToInvoker<TCommand, TInvoker> ()
