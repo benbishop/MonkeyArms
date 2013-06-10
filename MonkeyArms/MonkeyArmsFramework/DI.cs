@@ -88,6 +88,7 @@ namespace MonkeyArms
 				//checking to see if this target has a super class that has a mediator assigned to it
 				foreach(Type classType in ClassMediatorMappings.Keys){
 					//TODO: See if this would be better targetType.BaseType
+					//TODO: Figure out a better way to handle inheritance order
 					if(targetType.IsSubclassOf(classType) || targetType.GetInterface(classType.Name) != null){
 						return CreateMediator (target, classType);
 					}
