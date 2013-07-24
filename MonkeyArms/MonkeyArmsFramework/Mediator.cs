@@ -2,7 +2,7 @@ using System;
 
 namespace MonkeyArms
 {
-	public class Mediator:IInjectingTarget
+	public abstract class Mediator:IInjectingTarget
 	{
 
 
@@ -13,15 +13,9 @@ namespace MonkeyArms
 		}
 
 
-		public virtual void Register()
-		{
+		public abstract void Register();
 
-		}
-
-		public virtual void Unregister()
-		{
-
-		}
+		public abstract void Unregister ();
 
 
 	}
