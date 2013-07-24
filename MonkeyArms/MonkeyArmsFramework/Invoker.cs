@@ -31,7 +31,7 @@ namespace MonkeyArms
 			}
 		}
 
-		public void Invoke(InvokerArgs args = null)
+		public virtual void Invoke(InvokerArgs args = null)
 		{
 			foreach (Type command in CommandTypes) {
 				Command c = (Command)Activator.CreateInstance (command);

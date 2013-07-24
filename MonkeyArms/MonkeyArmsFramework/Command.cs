@@ -2,7 +2,7 @@ using System;
 
 namespace MonkeyArms
 {
-	public class Command:IInjectingTarget
+	public abstract class Command:IInjectingTarget
 	{
  
 		public event EventHandler Released = delegate{};
@@ -19,10 +19,7 @@ namespace MonkeyArms
 
 		}
 
-		public virtual void Execute(InvokerArgs args)
-		{
-
-		}
+		public abstract void Execute (InvokerArgs args);
 
 
 		protected void Detain()
