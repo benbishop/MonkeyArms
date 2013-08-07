@@ -38,15 +38,20 @@ namespace MonkeyArms
 						//getting method to get value to inject
 						MethodInfo methodInfo = GetMethodInfo (mi, memberInfo);
 
-
+						var propType = mi.DeclaringType;
 						
 						//Checking if value was found
-						var valueToInject = methodInfo.Invoke (null, null);
+
+						object valueToInject;
+						//If this throws an exception there is probably a child Inject prop that is not registered
+						valueToInject = methodInfo.Invoke (null, null);
+						
 						if (valueToInject == null) {
 							throw(new ArgumentException ("Inject target type was not found. Did you forget to register it with DI?"));
 						} else {
 							AssignValueToTarget (target, memberInfo, valueToInject);
 						}
+
 					}
 				}
 			}
