@@ -32,16 +32,16 @@ namespace MonkeyArms
 					if (attr is InjectAttribute) {
 
 
-						//retrieve injectable from DI
+						//We get the reference declaration to DI's Get method
 						var mi = typeof(DI).GetMethod ("Get", BindingFlags.Static | BindingFlags.Public);
 
-						//getting method to get value to inject
+						//getting DI.Get method so we can invoke it to get the value
+						//mi = DI.Get
+						//memberInfo = value type we want from DI.Get
 						MethodInfo methodInfo = GetMethodInfo (mi, memberInfo);
 
-						var propType = mi.DeclaringType;
-						
-						//Checking if value was found
 
+						//Checking if value was found
 						object valueToInject;
 						//If this throws an exception there is probably a child Inject prop that is not registered
 						valueToInject = methodInfo.Invoke (null, null);
