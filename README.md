@@ -34,6 +34,12 @@ However, if you are looking for the most perfect, the most documented, the most 
 
 This is very much a work in progress.
 
+###Example App###
+
+We created a simple password protected contacts app that demonstrates the overall structure a MonkeyArms app follows. We also demonstrate how you can use mappings for platform specific delegates. In this case, the delegate that uses Xamarin.Mobile to access a device's contacts library.
+
+https://github.com/benbishop/MonkeyArmsAddressBook
+
 
 **Note**
 If you're having issues getting the PCL to compile please check out the following link:
