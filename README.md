@@ -16,7 +16,7 @@ MonkeyArms provides a class called **DI** that is basically a wrapper for TinyIo
 
 ###Custom Inject Attribute###
 
-Any class that implements the IInjectingTarget interface can have a dependency injected via the **[Inject]** attribute. To provide additional flexibility, a **DIUtil** class has been provided that will allow a developer to pass a Class that implements **IInjectingTarget** to its *InjectProps* method for injection.
+Any class that extends the Actor class can have a dependency injected via the **[Inject]** attribute. To provide additional flexibility, a **DIUtil** class has been provided that will allow a developer to pass a Class that implements **IInjectingTarget** to its *InjectProps* method for injection.
 
 ###Invoker/Command Map###
 
