@@ -2,6 +2,12 @@
 
 MonkeyArms is a MVCS framework inspired by the AS3 framework Robotlegs. I named it MonkeyArms as a homage to the Xamarin mascot. I chose Arms instead of Legs because monkeys are known for their arms, not legs.
 
+##Example App##
+
+We created a simple password protected contacts app that demonstrates the overall structure a MonkeyArms app follows. We also demonstrate how you can use mappings for platform specific delegates. In this case, the delegate that uses Xamarin.Mobile to access a device's contacts library.
+
+https://github.com/benbishop/MonkeyArmsAddressBook
+
 ##What this Framework Provides ##
 
 ###DI Container Wrapper###
@@ -10,7 +16,7 @@ MonkeyArms provides a class called **DI** that is basically a wrapper for TinyIo
 
 ###Custom Inject Attribute###
 
-Any class that extends Actor can have a dependency injected via the **[Inject]** attribute. To provide additional flexibility, a **DIUtil** class has been provided that will allow a developer to pass a Class that implements **IInjectingTarget** to its *InjectProps* method for injection.
+Any class that implements the IInjectingTarget interface can have a dependency injected via the **[Inject]** attribute. To provide additional flexibility, a **DIUtil** class has been provided that will allow a developer to pass a Class that implements **IInjectingTarget** to its *InjectProps* method for injection.
 
 ###Invoker/Command Map###
 
@@ -34,11 +40,7 @@ However, if you are looking for the most perfect, the most documented, the most 
 
 This is very much a work in progress.
 
-###Example App###
 
-We created a simple password protected contacts app that demonstrates the overall structure a MonkeyArms app follows. We also demonstrate how you can use mappings for platform specific delegates. In this case, the delegate that uses Xamarin.Mobile to access a device's contacts library.
-
-https://github.com/benbishop/MonkeyArmsAddressBook
 
 
 **Note**
