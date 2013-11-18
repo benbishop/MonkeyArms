@@ -96,9 +96,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\MonkeyArmsFramework\MonkeyArmsFramework.csproj">
-      <Project>{A58D8DAE-62D2-40C4-9361-5BAF30CF1747}</Project>
-      <Name>MonkeyArmsFramework</Name>
+    <ProjectReference Include="..\MonkeyArmsPCL\MonkeyArmsPCL.csproj">
+      <Project>{34A1EC23-442A-42B9-9A33-8A8D9406F553}</Project>
+      <Name>MonkeyArmsPCL</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
