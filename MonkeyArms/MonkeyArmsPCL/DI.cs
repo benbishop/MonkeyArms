@@ -88,7 +88,14 @@ namespace MonkeyArms
 				//checking to see if this target has a super class that has a mediator assigned to it
 				foreach(Type classType in ClassMediatorMappings.Keys){
 					//TODO: See if this would be better targetType.BaseType
-					if(targetType.IsSubclassOf(classType) || targetType.GetInterface(classType.Name) != null){
+					var interfaces = targetType.GetInterfaces ();
+					var interfaceFound = false;
+					foreach (var interfaceType in interfaces) {
+						if (interfaceType == classType) {
+							interfaceFound = true;
+						}
+					}
+					if(targetType.IsSubclassOf(classType) || interfaceFound){
 						return CreateMediator (target, classType);
 					}
 				}
@@ -127,7 +134,6 @@ namespace MonkeyArms
 		{
 			//TODO: Look into inspecting constructor arguments
 			var t = typeof(TGet);
-			Console.WriteLine ("TGet {0}", t);
 			if (Instances.ContainsKey (typeof(TGet))) {
 				return Instances [typeof(TGet)] as TGet;
 			}

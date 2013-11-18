@@ -1,0 +1,5 @@
+/Users/bishopben/Documents/Work/TNID/LLS/repo/TNT Training App/TNTTrainerMobile/MonkeyArms/MonkeyArms/MonkeyArmsTests/obj/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/Users/bishopben/Documents/Work/TNID/LLS/repo/TNT Training App/TNTTrainerMobile/MonkeyArms/MonkeyArms/MonkeyArmsTests/bin/Debug/MonkeyArmsPCL.dll
+/Users/bishopben/Documents/Work/TNID/LLS/repo/TNT Training App/TNTTrainerMobile/MonkeyArms/MonkeyArms/MonkeyArmsTests/bin/Debug/MonkeyArmsPCL.dll.mdb
+/Users/bishopben/Documents/Work/TNID/LLS/repo/TNT Training App/TNTTrainerMobile/MonkeyArms/MonkeyArms/MonkeyArmsTests/bin/Debug/mscorlib.dll
+/Users/bishopben/Documents/Work/TNID/LLS/repo/TNT Training App/TNTTrainerMobile/MonkeyArms/MonkeyArms/MonkeyArmsTests/bin/Debug/TinyIOC.dll
