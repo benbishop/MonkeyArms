@@ -4,4 +4,3 @@
 /Users/bishopben/Documents/Work/TNID/LLS/repo/TNT Training App/TNTTrainerMobile/MonkeyArms/MonkeyArms/MonkeyArmsPCL/obj/Debug/MonkeyArmsPCL.dll
 /Users/bishopben/Documents/Work/TNID/LLS/repo/TNT Training App/TNTTrainerMobile/MonkeyArms/MonkeyArms/MonkeyArmsPCL/obj/Debug/MonkeyArmsPCL.dll.mdb
 /Users/bishopben/Documents/Work/TNID/LLS/repo/TNT Training App/TNTTrainerMobile/MonkeyArms/MonkeyArms/MonkeyArmsPCL/bin/Debug/TinyIOC.dll
-/Users/bishopben/Documents/Work/TNID/LLS/repo/TNT Training App/TNTTrainerMobile/MonkeyArms/MonkeyArms/MonkeyArmsPCL/bin/Debug/mscorlib.dll
