@@ -6,7 +6,7 @@ namespace MonkeyArms
 
 	public class Invoker
 	{
-		public event EventHandler Invoked = delegate {};
+		public virtual event EventHandler Invoked = delegate {};
 
 		protected List<Type> CommandTypes = new List<Type>();
 
@@ -31,7 +31,7 @@ namespace MonkeyArms
 			}
 		}
 
-		public void Invoke(InvokerArgs args = null)
+		public virtual void Invoke(InvokerArgs args = null)
 		{
 			foreach (Type command in CommandTypes) {
 				Command c = (Command)Activator.CreateInstance (command);
@@ -45,7 +45,7 @@ namespace MonkeyArms
 				c.Execute (args);
 			}
 
-			Invoked(this, new InvokedEventArgs(args));
+			Invoked(this, args);
 		}
 
 		protected void HandleCommandRelease (object sender, EventArgs e)
@@ -58,7 +58,7 @@ namespace MonkeyArms
 		}
 	}
 
-	public class InvokerArgs
+	public class InvokerArgs:EventArgs
 	{
 		public InvokerArgs()
 		{
@@ -66,20 +66,6 @@ namespace MonkeyArms
 		}
 	}
 
-	public class InvokedEventArgs:EventArgs{
-
-		private InvokerArgs invokerArgs;
-
-		public InvokerArgs InvokerArgs {
-			get {
-				return invokerArgs;
-			}
-		}
-
-		public InvokedEventArgs(InvokerArgs invokerArgs){
-			this.invokerArgs = invokerArgs;
-		}
-	}
 
 
 }

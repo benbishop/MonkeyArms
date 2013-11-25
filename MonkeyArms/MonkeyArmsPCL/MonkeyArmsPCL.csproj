@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A58D8DAE-62D2-40C4-9361-5BAF30CF1747}</ProjectGuid>
+    <ProjectGuid>{34A1EC23-442A-42B9-9A33-8A8D9406F553}</ProjectGuid>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>MonkeyArmsFramework</RootNamespace>
-    <AssemblyName>MonkeyArmsFramework</AssemblyName>
-    <TargetFrameworkProfile>Profile1</TargetFrameworkProfile>
+    <RootNamespace>MonkeyArmsPCL</RootNamespace>
+    <AssemblyName>MonkeyArmsPCL</AssemblyName>
+    <TargetFrameworkProfile>Profile136</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -24,7 +24,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -32,22 +32,19 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Actor.cs" />
+    <Compile Include="Command.cs" />
+    <Compile Include="Context.cs" />
+    <Compile Include="DI.cs" />
+    <Compile Include="DIUtil.cs" />
+    <Compile Include="Invoker.cs" />
+    <Compile Include="Mediator.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <ItemGroup>
     <Reference Include="TinyIOC">
       <HintPath>..\..\DLL\TinyIOC.dll</HintPath>
     </Reference>
-    <Reference Include="mscorlib">
-      <HintPath>..\..\DLL\mscorlib.dll</HintPath>
-    </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DI.cs" />
-    <Compile Include="Actor.cs" />
-    <Compile Include="Invoker.cs" />
-    <Compile Include="Command.cs" />
-    <Compile Include="Mediator.cs" />
-    <Compile Include="DIUtil.cs" />
-    <Compile Include="Context.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

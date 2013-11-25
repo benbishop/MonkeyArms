@@ -119,7 +119,7 @@ namespace MonkeyArmsTests
 
 			public override void Execute (InvokerArgs args)
 			{
-				base.Execute (args);
+
 				VM.Changed = true;
 				VM.Title = (args as TestInvokerArgs).NewTitle;
 			}
@@ -136,7 +136,7 @@ namespace MonkeyArmsTests
 
 			public override void Execute (InvokerArgs args)
 			{
-				base.Execute (args);
+
 				VM.SomethingElseChanged = true;
 
 			}
