@@ -40,6 +40,7 @@
     <Compile Include="DIUtil.cs" />
     <Compile Include="Invoker.cs" />
     <Compile Include="Mediator.cs" />
+    <Compile Include="InvokerMap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
