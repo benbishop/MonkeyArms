@@ -16,6 +16,8 @@ namespace MonkeyArms
 		{
 		}
 
+
+
 		public void AddCommand<TCommand>()
 			where TCommand:class
 		{

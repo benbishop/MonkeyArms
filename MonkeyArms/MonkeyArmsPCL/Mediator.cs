@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace MonkeyArms
 {
 	public abstract class Mediator:IInjectingTarget
 	{
 
+		protected InvokerMap InvokerMap = new InvokerMap();
 
 		public Mediator (IMediatorTarget target)
 		{
@@ -15,7 +17,19 @@ namespace MonkeyArms
 
 		public abstract void Register();
 
-		public abstract void Unregister ();
+		public virtual void Unregister ()
+		{
+			InvokerMap.RemoveAll ();
+
+		}
+
+		public int GetInvokerMapHandlerCount(Invoker invoker)
+		{
+			return InvokerMap.GetInvokerHandlerCount (invoker);
+		}
+
+
+
 
 
 	}
