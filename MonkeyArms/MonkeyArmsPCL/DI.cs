@@ -20,6 +20,7 @@ namespace MonkeyArms
 		public static void UnMapSingleton<TSingleton>()
 			where TSingleton :class
 		{
+
 			Injector.Register<TSingleton> ().AsMultiInstance();
 		}
 
@@ -40,6 +41,7 @@ namespace MonkeyArms
 			where TInterface : class
 		{
  			Injector.Register<TInterface, TImplementation> ().AsMultiInstance();	
+
 		}
 
 		public static TInvoker MapCommandToInvoker<TCommand, TInvoker> ()

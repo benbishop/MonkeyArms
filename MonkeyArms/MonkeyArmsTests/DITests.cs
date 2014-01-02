@@ -48,6 +48,13 @@ namespace MonkeyArmsTests
 			Assert.IsTrue (DI.Get<ITestClass> () is TestClass);
 		}
 
+		[Test(Description = "Assert when an interface is registered as singleton it returns an instance of a mapped class to said interface")]
+		public void TestMapInterfaceSingleton()
+		{
+			DI.MapClassToInterface<TestClass, ITestClass> ();
+			DI.MapSingleton<ITestClass> ();
+		}
+
 		[Test(Description="Assert MapCommandToInvoker maps command to invoker and correctly executes command when invoker is invoked")]
 		public void TestMapCommandToInvoker ()
 		{
