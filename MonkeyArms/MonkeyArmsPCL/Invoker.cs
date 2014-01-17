@@ -62,6 +62,8 @@ namespace MonkeyArms
 
 	public class InvokerArgs:EventArgs
 	{
+		public static InvokerArgs Empty = new InvokerArgs();
+
 		public InvokerArgs()
 		{
 
