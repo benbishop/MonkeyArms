@@ -5,23 +5,23 @@ namespace MonkeyArms
 {
 	public class InvokerMap
 	{
-		protected Dictionary<Invoker, List<EventHandler>> Map = new Dictionary<Invoker, List<EventHandler>>(); 
+		protected Dictionary<IInvoker, List<EventHandler>> Map = new Dictionary<IInvoker, List<EventHandler>>(); 
 
 		public InvokerMap ()
 		{
 		}
 
-		public bool IsInvokerMapped (Invoker targetInvoker)
+		public bool IsInvokerMapped (IInvoker targetInvoker)
 		{
 			return Map.ContainsKey (targetInvoker);
 		}
 
-		public bool InvokerHasHandler (Invoker targetInvoker, EventHandler handlerFunction)
+		public bool InvokerHasHandler (IInvoker targetInvoker, EventHandler handlerFunction)
 		{
 			return (IsInvokerMapped(targetInvoker) && Map [targetInvoker].Contains (handlerFunction));
 		}
 
-		public void Add (Invoker targetInvoker, EventHandler handlerFunction)
+		public void Add (IInvoker targetInvoker, EventHandler handlerFunction)
 		{
 			if (!IsInvokerMapped (targetInvoker)) {
 				Map [targetInvoker] = new List<EventHandler> ();
