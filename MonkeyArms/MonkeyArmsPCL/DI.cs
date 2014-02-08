@@ -20,6 +20,15 @@ namespace MonkeyArms
 			Singletons.Add (typeof(TSingleton));
 		}
 
+		public static void MapInterfaceSingleton<TInterface, TImplementation> ()
+			where TImplementation : class, TInterface
+			where TInterface : class
+		{
+
+			DI.MapClassToInterface <TImplementation, TInterface> ();
+			DI.MapInstanceToSingleton<TInterface> (DI.Get<TImplementation>());
+		}
+
 		public static void UnMapSingleton<TSingleton>()
 			where TSingleton :class
 		{
