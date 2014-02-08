@@ -11,10 +11,13 @@ namespace MonkeyArms
 
 		private static Dictionary<Type, object> Instances = new Dictionary<Type, object>();
 
+		private static List<Type> Singletons = new List<Type>();
+
 		public static void MapSingleton<TSingleton> ()
 			where TSingleton :class
 		{
 			Injector.Register<TSingleton> ().AsSingleton ();
+			Singletons.Add (typeof(TSingleton));
 		}
 
 		public static void UnMapSingleton<TSingleton>()
@@ -22,11 +25,20 @@ namespace MonkeyArms
 		{
 
 			Injector.Register<TSingleton> ().AsMultiInstance();
+			Singletons.Remove (typeof(TSingleton));
 		}
 
 		public static void MapInstanceToSingleton<TSingleton>(object instance)
 		{
 			Instances [typeof(TSingleton)] = instance;
+			if (!IsTypeSingleton (typeof(TSingleton))) {
+				Singletons.Add (typeof(TSingleton));
+			}
+		}
+
+		static bool IsTypeSingleton (Type typeToTest)
+		{
+			return Singletons.Contains (typeToTest);
 		}
 
 		public static void UnMapInstanceFromSingleton<TSingleton>()
@@ -40,7 +52,7 @@ namespace MonkeyArms
 			where TImplementation : class, TInterface
 			where TInterface : class
 		{
- 			Injector.Register<TInterface, TImplementation> ().AsMultiInstance();	
+			Injector.Register<TInterface, TImplementation> ().AsMultiInstance();	
 
 		}
 
@@ -48,16 +60,19 @@ namespace MonkeyArms
 			where TCommand : Command
 			where TInvoker : Invoker
 		{
-		
 
-			MapSingleton<TInvoker> ();
+			if(!IsTypeSingleton(typeof(TInvoker))){
+				DI.MapSingleton<TInvoker> ();
+			}
+
+
 			var invoker = DI.Get<TInvoker> ();
 			invoker.AddCommand <TCommand>();
 
 			return invoker;
 		}
 
-		/*
+		/*		
 		 * Mediator mappings
 		 */
 
@@ -128,7 +143,7 @@ namespace MonkeyArms
 		}
 
 
-		/*
+		/*		
 		 * Standard Get method
 		 */ 
 		public static TGet Get<TGet> ()
