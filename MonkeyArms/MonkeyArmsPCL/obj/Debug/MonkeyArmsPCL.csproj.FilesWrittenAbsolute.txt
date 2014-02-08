@@ -4,3 +4,9 @@
 /Users/Ben/Documents/Work/TheresaNeil/TNT Canada/repo/TNT Training App/TNTTrainerMobile/MonkeyArms/MonkeyArms/MonkeyArmsPCL/obj/Debug/MonkeyArmsPCL.dll
 /Users/Ben/Documents/Work/TheresaNeil/TNT Canada/repo/TNT Training App/TNTTrainerMobile/MonkeyArms/MonkeyArms/MonkeyArmsPCL/obj/Debug/MonkeyArmsPCL.dll.mdb
 /Users/Ben/Documents/Work/TheresaNeil/TNT Canada/repo/TNT Training App/TNTTrainerMobile/MonkeyArms/MonkeyArms/MonkeyArmsPCL/bin/Debug/TinyIOC.dll
+/Users/bishopben/Documents/Projects/Xamarin Github/MonkeyArms/MonkeyArms/MonkeyArmsPCL/obj/Debug/.NETPortable,Version=v4.0,Profile=Profile136.AssemblyAttribute.cs
+/Users/bishopben/Documents/Projects/Xamarin Github/MonkeyArms/MonkeyArms/MonkeyArmsPCL/bin/Debug/MonkeyArmsPCL.dll.mdb
+/Users/bishopben/Documents/Projects/Xamarin Github/MonkeyArms/MonkeyArms/MonkeyArmsPCL/bin/Debug/MonkeyArmsPCL.dll
+/Users/bishopben/Documents/Projects/Xamarin Github/MonkeyArms/MonkeyArms/MonkeyArmsPCL/obj/Debug/MonkeyArmsPCL.dll
+/Users/bishopben/Documents/Projects/Xamarin Github/MonkeyArms/MonkeyArms/MonkeyArmsPCL/obj/Debug/MonkeyArmsPCL.dll.mdb
+/Users/bishopben/Documents/Projects/Xamarin Github/MonkeyArms/MonkeyArms/MonkeyArmsPCL/bin/Debug/TinyIOC.dll
