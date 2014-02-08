@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>MonkeyArms</id>
+    <version>1.0.16</version>
+    <authors>Ben Bishop</authors>
+    <owners>Freckle Interactive, LLC</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/benbishop/MonkeyArms</projectUrl>
+
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MonkeyArms is a MVCS framework inspired by the AS3 framework Robotlegs.</description>
+    <releaseNotes>Added InvokerMap and worked on fixing TinyIOC dependency error.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>Xamarin IOC Framework DI MVCS</tags>
+<references>
+  <reference file="TinyIOC.dll" />
+</references>
+	
+  </metadata>
+
+
+
+</package>
