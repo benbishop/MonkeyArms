@@ -4,7 +4,9 @@ using System.Collections.Generic;
 namespace MonkeyArms
 {
 
-	public class Invoker
+
+
+	public class Invoker:IInvoker
 	{
 		public virtual event EventHandler Invoked = delegate {};
 
@@ -60,8 +62,16 @@ namespace MonkeyArms
 		}
 	}
 
+
+	public interface IInvoker{
+		event EventHandler Invoked;
+		void Invoke(InvokerArgs args);
+	}
+
 	public class InvokerArgs:EventArgs
 	{
+		public static InvokerArgs Empty = new InvokerArgs();
+
 		public InvokerArgs()
 		{
 
