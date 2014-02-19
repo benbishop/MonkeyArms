@@ -28,11 +28,10 @@ namespace MonkeyArms
                 HandlerMap.Add(invoker, ((sender, e) =>
                 {
                     // ReSharper disable once AssignNullToNotNullAttribute
-                    if (sender != null && ArgsMap.ContainsKey(sender as IInvoker))
+                    var iInvoker = sender as IInvoker;
+                    if (iInvoker != null)
                     {
-                        // ReSharper disable AssignNullToNotNullAttribute
-                        ArgsMap[sender as IInvoker] = e;
-                        // ReSharper restore AssignNullToNotNullAttribute
+                        ArgsMap[iInvoker] = e;
                     }
                     if (ArgsMap.Keys.Count == ArgsToCollectCount)
                     {
