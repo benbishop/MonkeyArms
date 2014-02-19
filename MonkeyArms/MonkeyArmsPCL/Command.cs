@@ -2,38 +2,28 @@ using System;
 
 namespace MonkeyArms
 {
-	public abstract class Command:IInjectingTarget
-	{
- 
-		public event EventHandler Released = delegate{};
+    public abstract class Command : IInjectingTarget
+    {
+        public event EventHandler Released = delegate { };
 
-		private bool detained = false;
-		public bool Detained{
-			get{
-				return detained;
-			}
-		}
+        public bool Detained { get; private set; }
 
-		public Command ()
-		{
+        protected Command()
+        {
+            Detained = false;
+        }
 
-		}
+        public abstract void Execute(InvokerArgs args);
 
-		public abstract void Execute (InvokerArgs args);
+        protected void Detain()
+        {
+            Detained = true;
+        }
 
-
-		protected void Detain()
-		{
-			detained = true;
-		}
-
-		protected void Release()
-		{
-			detained = false;
-			Released(this, new EventArgs());
-
-		}
-
-	}
+        protected void Release()
+        {
+            Detained = false;
+            Released(this, new EventArgs());
+        }
+    }
 }
-

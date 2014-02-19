@@ -1,121 +1,106 @@
-using NUnit.Framework;
-using System;
 using MonkeyArms;
 using Moq;
+using NUnit.Framework;
 
 namespace MonkeyArmsTests
 {
-	[TestFixture ()]
-	public class InvokerChainTests
-	{
+    [TestFixture]
+    public class InvokerChainTests
+    {
+        public class BaseChainTest
+        {
+            protected Invoker StartInvoker = new Invoker();
 
-		public class BaseChainTest{
-			protected Invoker startInvoker = new Invoker ();
+            protected Mock<IChainableInvoker> MockInvoker = new Mock<IChainableInvoker>();
 
-			protected Mock<IChainableInvoker> mockInvoker  = new Mock<IChainableInvoker> ();
+            protected IChainableInvoker MiddleInvoker = new MiddleInvoker();
 
-			protected IChainableInvoker middleInvoker = new MiddleInvoker ();
+            protected InvokerArgs TestInvokerArgs = new InvokerArgs();
 
-			protected InvokerArgs testInvokerArgs = new InvokerArgs ();
+            protected InvokerChain Chain;
+        }
 
-			protected InvokerChain chain;
-		}
+        public class TwoInvokerChain : BaseChainTest
+        {
+            public void SetupTwoInvokerChain()
+            {
+                Chain = new InvokerChain();
+                Chain.Add(StartInvoker, MockInvoker.Object);
+            }
 
+            [Test]
+            public void VerifyChainOfTwoInvokers()
+            {
+                SetupTwoInvokerChain();
+                Chain.Start(StartInvoker, TestInvokerArgs);
+                MockInvoker.Verify(invoker => invoker.InvokeFrom(It.Is<InvokerArgs>(args => args == TestInvokerArgs)), Times.Once());
+            }
 
-		public class TwoInvokerChain:BaseChainTest{
+            [Test]
+            public void VerifyGetArgsIsZero()
+            {
+                SetupTwoInvokerChain();
+                Chain.Start(StartInvoker, TestInvokerArgs);
+                Assert.AreEqual(0, Chain.GetArgsOfType<InvokerArgs>().Count);
+            }
 
+            [Test]
+            public void VerifyGetArgsIsOne()
+            {
+                SetupTwoInvokerChain();
+                // ReSharper disable once CoVariantArrayConversion
+                Chain.CollectArgsForInvokers(new[] { StartInvoker });
+                Chain.Start(StartInvoker, TestInvokerArgs);
+                Assert.AreEqual(1, Chain.GetArgsOfType<InvokerArgs>().Count);
+            }
+        }
 
-			public void SetupTwoInvokerChain()
-			{
-				chain = new InvokerChain ();
-				chain.Add (startInvoker, mockInvoker.Object);
+        public class ThreeInvokerChain : BaseChainTest
+        {
+            [SetUp]
+            public void SetupThreeInvokerChain()
+            {
+                Chain = new InvokerChain();
+                Chain.Add(StartInvoker, MiddleInvoker);
+                Chain.Add(MiddleInvoker, MockInvoker.Object);
+            }
 
-			}
+            [Test]
+            public void VerifyChainOfThreeInvokers()
+            {
+                Chain.Start(StartInvoker, TestInvokerArgs);
+                MockInvoker.Verify(invoker => invoker.InvokeFrom(It.IsAny<InvokerArgs>()), Times.Once());
+            }
 
-			[Test ()]
-			public void VerifyChainOfTwoInvokers ()
-			{
-				SetupTwoInvokerChain ();
-				chain.Start (startInvoker, testInvokerArgs);
-				mockInvoker.Verify (invoker => invoker.InvokeFrom(It.Is<InvokerArgs>(args => args == testInvokerArgs)), Times.Once ());
+            [Test]
+            public void VerifyGetArgsIsTwo()
+            {
+                SetupThreeInvokerChain();
+                Chain.CollectArgsForInvokers(new IInvoker[] { StartInvoker, MiddleInvoker });
+                Chain.Start(StartInvoker, TestInvokerArgs);
+                Assert.AreEqual(2, Chain.GetArgsOfType<InvokerArgs>().Count);
+            }
 
-			}
+            [Test]
+            public void VerifyGetArgsReturnsCorrectNumberOfType()
+            {
+                SetupThreeInvokerChain();
+                Chain.CollectArgsForInvokers(new IInvoker[] { StartInvoker, MiddleInvoker });
+                Chain.Start(StartInvoker, TestInvokerArgs);
+                Assert.AreEqual(1, Chain.GetArgsOfType<MiddleInvokerArgs>().Count);
+            }
+        }
+    }
 
-			[Test]
-			public void VerifyGetArgsIsZero()
-			{
-				SetupTwoInvokerChain ();
-				chain.Start (startInvoker, testInvokerArgs);
-				Assert.AreEqual (0, chain.GetArgsOfType<InvokerArgs> ().Count);
+    internal class MiddleInvoker : Invoker, IChainableInvoker
+    {
+        public void InvokeFrom(InvokerArgs args)
+        {
+            Invoke(new MiddleInvokerArgs());
+        }
+    }
 
-			}
-
-			[Test]
-			public void VerifyGetArgsIsOne()
-			{
-				SetupTwoInvokerChain ();
-				chain.CollectArgsForInvokers (new Invoker[]{ startInvoker });
-				chain.Start (startInvoker, testInvokerArgs);
-				Assert.AreEqual (1, chain.GetArgsOfType<InvokerArgs> ().Count);
-
-			}
-
-
-
-		}
-
-		public class ThreeInvokerChain:BaseChainTest{
-
-			[SetUp]
-			public void SetupThreeInvokerChain(){
-				chain = new InvokerChain ();
-				chain.Add (startInvoker, middleInvoker);
-				chain.Add (middleInvoker, mockInvoker.Object);
-
-
-			}
-
-			[Test ()]
-			public void VerifyChainOfThreeInvokers ()
-			{
-				chain.Start (startInvoker, testInvokerArgs);
-				mockInvoker.Verify (invoker => invoker.InvokeFrom(It.IsAny<InvokerArgs>()), Times.Once ());
-
-			}
-
-			[Test]
-			public void VerifyGetArgsIsTwo()
-			{
-				SetupThreeInvokerChain ();
-				chain.CollectArgsForInvokers (new IInvoker[]{ startInvoker, middleInvoker });
-				chain.Start (startInvoker, testInvokerArgs);
-				Assert.AreEqual (2, chain.GetArgsOfType<InvokerArgs> ().Count);
-
-			}
-
-			[Test]
-			public void VerifyGetArgsReturnsCorrectNumberOfType()
-			{
-				SetupThreeInvokerChain ();
-				chain.CollectArgsForInvokers (new IInvoker[]{ startInvoker, middleInvoker });
-				chain.Start (startInvoker, testInvokerArgs);
-				Assert.AreEqual (1, chain.GetArgsOfType<MiddleInvokerArgs> ().Count);
-
-			}
-		}
-
-
-	}
-
-	class MiddleInvoker:Invoker,IChainableInvoker{
-		public void InvokeFrom (InvokerArgs args)
-		{
-			Invoke (new MiddleInvokerArgs());
-		}
-	}
-
-	class MiddleInvokerArgs:InvokerArgs{
-
-	}
+    internal class MiddleInvokerArgs : InvokerArgs
+    {
+    }
 }
-
