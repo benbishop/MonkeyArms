@@ -28,6 +28,7 @@ http://www.youtube.com/watch?v=_owgEjN2qew
 The framework provides an **Invoker** base class that can be designated as a Singleton and have **Command** Classes mapped to it. Anytime an **Invoker** is invoked, it will execute any **Command** registered with it. In cases where a developer may want to use an **Invoker** as a global event/signal with no command execution, an Invoked EventHandler has been provided. With this EventHandler, an **Invoker** can be mapped as a Singleton and any class can then listen for the Invoked event. 
 
 ###Mediator###
+http://www.youtube.com/watch?v=GWYd3lM4RVc
 
 **Mediators** are the glue for this framework. As mentioned before, **Mediators** can be mapped to any classes that implement **IMediatorTarget**. A class looking to be mediated, can request a **Mediator** via the *RequestMediator* method of the **DI** class. This is especially useful for communicating changes in your data/state layer to your views. The mediators can also listen for view events to dispatch **Invokers**.
 
