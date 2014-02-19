@@ -1,65 +1,47 @@
-using System;
-using NUnit.Framework;
 using MonkeyArms;
-using System.Diagnostics;
+using NUnit.Framework;
 
 namespace iOSTests
 {
-	[TestFixture]
-	public class ActorTest
-	{
-		[Test]
-		public void Pass ()
-		{
-			DI.MapSingleton<TestClassToInject> ();
+    [TestFixture]
+    public class ActorTest
+    {
+        [Test]
+        public void Pass()
+        {
+            DI.MapSingleton<TestClassToInject>();
 
-//			TestActor actor = new TestActor ();
+            //			TestActor actor = new TestActor ();
 
-//			Debug.WriteLine ("test");
-			Assert.True (true);
-		}
+            //			Debug.WriteLine ("test");
+            Assert.True(true);
+        }
 
-		[Test]
-		[Ignore ("another time")]
-		public void Ignore ()
-		{
-			Assert.True (false);
-		}
-	}
+        [Test]
+        [Ignore("another time")]
+        public void Ignore()
+        {
+            Assert.True(false);
+        }
+    }
 
-	public class TestClassToInject
-	{
-		public TestClassToInject ()
-		{
-		}
-	}
+    public class TestClassToInject
+    {
+    }
 
-	public class TestPM
-	{
-		public string Title = "This is the title";
+    // ReSharper disable once InconsistentNaming
+    public class TestPM
+    {
+        public string Title = "This is the title";
+    }
 
-		public TestPM ()
-		{
+    public class TestActor : Actor
+    {
+        [Inject]
+        public TestClassToInject TestVar { get; set; }
 
-		}
-	}
-
-	public class TestActor:Actor
-	{
-
-		[Inject]
-		public TestClassToInject TestVar{ get; set; }
-
-		[Inject]
-		public TestPM PM { get; set; }
-
-		public TestActor ():base()
-		{
-
-		}
-	}
-
-
-
-
+        [Inject]
+        // ReSharper disable once InconsistentNaming
+        public TestPM PM { get; set; }
+    }
 }

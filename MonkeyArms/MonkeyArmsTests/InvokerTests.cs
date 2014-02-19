@@ -1,146 +1,123 @@
-using System;
-using NUnit.Framework;
 using MonkeyArms;
+using NUnit.Framework;
 
 namespace MonkeyArmsTests
 {
-	[TestFixture()]
-	public class InvokerTests
-	{
+    [TestFixture]
+    public class InvokerTests
+    {
+        protected Invoker Invoker = new TestInvoker();
+        protected TestCommand1 Command1 = new TestCommand1();
+        protected TestCommand2 Command2 = new TestCommand2();
 
-		protected Invoker Invoker = new TestInvoker();
-		protected TestCommand1 Command1 = new TestCommand1 ();
-		protected TestCommand2 Command2 = new TestCommand2 ();
+        [Test(Description = "Assert each command gets executed when Invoke is called")]
+        public void TestInvoke()
+        {
+            DI.MapSingleton<TestViewModel>();
+            Invoker.AddCommand<TestCommand1>();
+            Invoker.AddCommand<TestCommand2>();
+            Invoker.Invoke(new TestInvokerArgs("Hello World"));
 
+            Assert.True(DI.Get<TestViewModel>().Changed);
+            Assert.True(DI.Get<TestViewModel>().SomethingElseChanged);
+        }
 
+        [Test(Description = "Assert invoker passes InvokerArgs payload")]
+        public void TestInvokerArgsBeingPassed()
+        {
+            DI.MapSingleton<TestViewModel>();
+            Invoker.AddCommand<TestCommand1>();
+            Invoker.Invoke(new TestInvokerArgs("Hello World"));
 
-		[Test(Description="Assert each command gets executed when Invoke is called")]
-		public void TestInvoke ()
-		{
-			DI.MapSingleton<TestViewModel> ();
-			Invoker.AddCommand<TestCommand1>();
-			Invoker.AddCommand<TestCommand2>();
-			Invoker.Invoke (new TestInvokerArgs("Hello World"));
+            Assert.AreEqual("Hello World", DI.Get<TestViewModel>().Title);
+        }
 
-			Assert.True (DI.Get<TestViewModel>().Changed);
-			Assert.True (DI.Get<TestViewModel>().SomethingElseChanged);
+        [Test(Description = "Assert invoker calls Invoked event once Invoke complets")]
+        public void TestInvokerCallsInvoked()
+        {
+            var wasInvoked = false;
+            Invoker.Invoked += (sender, e) =>
+            {
+                wasInvoked = true;
+            };
+            Invoker.Invoke(new TestInvokerArgs("Hello World"));
 
-		}
+            Assert.IsTrue(wasInvoked);
+        }
 
-		[Test(Description="Assert invoker passes InvokerArgs payload")]
-		public void TestInvokerArgsBeingPassed ()
-		{
-			DI.MapSingleton<TestViewModel> ();
-			Invoker.AddCommand<TestCommand1>();
-			Invoker.Invoke (new TestInvokerArgs("Hello World"));
+        [Test(Description = "Assert an injected invoker calls Invoked event once Invoke complets")]
+        public void TestInjetedInvokerCallsInvoked()
+        {
+            var wasInvoked = false;
+            DI.MapSingleton<TestInvoker>();
+            DI.Get<TestInvoker>().Invoked += (sender, e) =>
+            {
+                wasInvoked = true;
+            };
 
-			Assert.AreEqual("Hello World", DI.Get<TestViewModel>().Title);
+            DI.Get<TestInvoker>().Invoke(new TestInvokerArgs("Hello World"));
 
+            Assert.IsTrue(wasInvoked);
+        }
 
-		}
+        /*
+         * Test Classes
+         *
+        */
 
-		[Test(Description="Assert invoker calls Invoked event once Invoke complets")]
-		public void TestInvokerCallsInvoked ()
-		{
-			bool WasInvoked = false;
-			Invoker.Invoked += (object sender, EventArgs e) => {
-				WasInvoked = true;
-			};
-			Invoker.Invoke (new TestInvokerArgs("Hello World"));
+        public class TestInvokerArgs : InvokerArgs
+        {
+            private readonly string _newTitle;
 
-			Assert.IsTrue (WasInvoked);
-		}
+            public string NewTitle
+            {
+                get
+                {
+                    return _newTitle;
+                }
+            }
 
-		[Test(Description="Assert an injected invoker calls Invoked event once Invoke complets")]
-		public void TestInjetedInvokerCallsInvoked ()
-		{
-			bool WasInvoked = false;
-			DI.MapSingleton<TestInvoker>();
-			DI.Get<TestInvoker>().Invoked += (object sender, EventArgs e) => {
-				WasInvoked = true;
-			};
+            public TestInvokerArgs(string title)
+            {
+                _newTitle = title;
+            }
+        }
 
-			DI.Get<TestInvoker>().Invoke (new TestInvokerArgs("Hello World"));
+        public class TestViewModel
+        {
+            public bool Changed = false;
 
-			Assert.IsTrue (WasInvoked);
+            public bool SomethingElseChanged = false;
 
+            public string Title;
+        }
 
-		}
+        public class TestInvoker : Invoker
+        {
+        }
 
-	
-		/*
-		 * Test Classes
-		 * 
-		*/
+        public class TestCommand1 : Command
+        {
+            [Inject]
+            public TestViewModel VM;
 
-		public class TestInvokerArgs:InvokerArgs{
+            public override void Execute(InvokerArgs args)
+            {
+                VM.Changed = true;
+                var testInvokerArgs = args as TestInvokerArgs;
+                if (testInvokerArgs != null) VM.Title = testInvokerArgs.NewTitle;
+            }
+        }
 
-			private string newTitle;
+        public class TestCommand2 : Command
+        {
+            [Inject]
+            public TestViewModel VM;
 
-			public string NewTitle {
-				get {
-					return newTitle;
-				}
-			}
-
-			public TestInvokerArgs(string title):base(){
-				newTitle = title;
-			}
-		}
-
-		public class TestViewModel{
-
-			public bool Changed = false;
-
-			public bool SomethingElseChanged = false;
-
-			public string Title;
-
-			public TestViewModel(){
-
-			}
-		}
-
-		public class TestInvoker:Invoker{
-			public TestInvoker():base()
-			{
-
-			}
-		}
-
-		public class TestCommand1:Command{
-
-			[Inject]
-			public TestViewModel VM;
-
-			public TestCommand1():base(){
-
-			}
-
-			public override void Execute (InvokerArgs args)
-			{
-
-				VM.Changed = true;
-				VM.Title = (args as TestInvokerArgs).NewTitle;
-			}
-		}
-
-		public class TestCommand2:Command{
-
-			[Inject]
-			public TestViewModel VM;
-
-			public TestCommand2():base(){
-
-			}
-
-			public override void Execute (InvokerArgs args)
-			{
-
-				VM.SomethingElseChanged = true;
-
-			}
-		}
-	}
+            public override void Execute(InvokerArgs args)
+            {
+                VM.SomethingElseChanged = true;
+            }
+        }
+    }
 }
-

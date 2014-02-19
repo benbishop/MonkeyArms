@@ -1,41 +1,28 @@
-using System;
-using System.Collections.Generic;
-
 namespace MonkeyArms
 {
-	public abstract class Mediator:IInjectingTarget
-	{
+    public abstract class Mediator : IInjectingTarget
+    {
+        protected InvokerMap InvokerMap = new InvokerMap();
 
-		protected InvokerMap InvokerMap = new InvokerMap();
+        // ReSharper disable once UnusedParameter.Local
+        protected Mediator(IMediatorTarget target)
+        {
+        }
 
-		public Mediator (IMediatorTarget target)
-		{
+        public abstract void Register();
 
+        public virtual void Unregister()
+        {
+            InvokerMap.RemoveAll();
+        }
 
-		}
+        public int GetInvokerMapHandlerCount(Invoker invoker)
+        {
+            return InvokerMap.GetInvokerHandlerCount(invoker);
+        }
+    }
 
-
-		public abstract void Register();
-
-		public virtual void Unregister ()
-		{
-			InvokerMap.RemoveAll ();
-
-		}
-
-		public int GetInvokerMapHandlerCount(Invoker invoker)
-		{
-			return InvokerMap.GetInvokerHandlerCount (invoker);
-		}
-
-
-
-
-
-	}
-
-	public interface IMediatorTarget{
-
-	}
+    public interface IMediatorTarget
+    {
+    }
 }
-

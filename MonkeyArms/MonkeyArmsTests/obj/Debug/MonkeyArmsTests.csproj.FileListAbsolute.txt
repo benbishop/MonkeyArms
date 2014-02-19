@@ -1,0 +1,12 @@
+C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsTests\obj\Debug\MonkeyArmsTests.csprojResolveAssemblyReference.cache
+C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsTests\bin\Debug\MonkeyArmsTests.dll
+C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsTests\bin\Debug\MonkeyArmsTests.pdb
+C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsTests\bin\Debug\Moq.dll
+C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsTests\bin\Debug\nunit.framework.dll
+C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsTests\bin\Debug\TinyIoC.dll
+C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsTests\bin\Debug\nunit.framework.xml
+C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsTests\bin\Debug\Moq.xml
+C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsTests\obj\Debug\MonkeyArmsTests.dll
+C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsTests\obj\Debug\MonkeyArmsTests.pdb
+C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsTests\bin\Debug\MonkeyArms.dll
+C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsTests\bin\Debug\MonkeyArms.pdb
