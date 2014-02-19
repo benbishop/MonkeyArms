@@ -27,7 +27,6 @@ namespace MonkeyArms
             {
                 HandlerMap.Add(invoker, ((sender, e) =>
                 {
-                    // ReSharper disable once AssignNullToNotNullAttribute
                     var iInvoker = sender as IInvoker;
                     if (iInvoker != null)
                     {
