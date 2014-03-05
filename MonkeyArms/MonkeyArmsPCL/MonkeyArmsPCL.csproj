@@ -42,10 +42,11 @@
     <Compile Include="Mediator.cs" />
     <Compile Include="InvokerMap.cs" />
     <Compile Include="InvokerChain.cs" />
+    <Compile Include="InjectionMap.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
-    <Reference Include="TinyIOC">
+    <Reference Include="TinyIoC">
       <HintPath>..\..\DLL\TinyIOC.dll</HintPath>
     </Reference>
   </ItemGroup>

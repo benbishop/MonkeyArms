@@ -8,3 +8,4 @@
 /Users/bishopben/Documents/Projects/Xamarin Github/MonkeyArms/MonkeyArms/MonkeyArmsPCL/bin/Debug/MonkeyArms.dll
 /Users/bishopben/Documents/Projects/Xamarin Github/MonkeyArms/MonkeyArms/MonkeyArmsPCL/obj/Debug/MonkeyArms.dll
 /Users/bishopben/Documents/Projects/Xamarin Github/MonkeyArms/MonkeyArms/MonkeyArmsPCL/obj/Debug/MonkeyArms.dll.mdb
+/Users/bishopben/Documents/Projects/Xamarin Github/MonkeyArms/MonkeyArms/MonkeyArmsPCL/bin/Debug/TinyIoC.dll
