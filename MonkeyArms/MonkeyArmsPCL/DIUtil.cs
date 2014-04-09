@@ -6,6 +6,7 @@ namespace MonkeyArms
 {
 	public class InjectAttribute : Attribute
 	{
+		public Type Default;
 	}
 
 	public class DIUtil
@@ -26,6 +27,8 @@ namespace MonkeyArms
 
 				foreach (Attribute attr in attrs) {
 					if (map == null || !map.HasTypeMapped (GetMemberInfoType (memberInfo))) {
+
+
 						//We get the reference declaration to DI's Get method
 						var mi = typeof(DI).GetMethod ("Get", BindingFlags.Static | BindingFlags.Public);
 
@@ -38,10 +41,16 @@ namespace MonkeyArms
 						//Checking if value was found
 						object valueToInject;
 						//If this throws an exception there is probably a child Inject prop that is not registered
-						valueToInject = methodInfo.Invoke (null, null);
+						try {
+							valueToInject = methodInfo.Invoke (null, null);
+						} catch (Exception e) {
+							valueToInject = null;
+						}
 
-						if (valueToInject == null) {
+						if (valueToInject == null && (attr as InjectAttribute).Default == null) {
 							throw(new ArgumentException ("Inject target type was not found. Did you forget to register it with DI?"));
+						} else if (valueToInject == null && (attr as InjectAttribute).Default != null) {
+							AssignValueToTarget (target, memberInfo, Activator.CreateInstance ((attr as InjectAttribute).Default));
 						} else {
 							AssignValueToTarget (target, memberInfo, valueToInject);
 						}

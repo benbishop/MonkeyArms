@@ -100,6 +100,14 @@ namespace MonkeyArmsTests
 			DI.UnMapInstanceFromSingleton<TestPM> ();
 			origPM.ShouldNotEqual (DI.Get<TestPM> ());
 		}
+
+		[Test]
+		public void TestDefaultPropertyOfInjectAttribute ()
+		{
+			var testCommand = new TestCommand3 ();
+			DIUtil.InjectProps (testCommand);
+			testCommand.TestClassInstance.ShouldBeType<TestClass> ();
+		}
 	}
 	/*
          * Test Classes
@@ -133,6 +141,17 @@ namespace MonkeyArmsTests
 		public override void Execute (InvokerArgs args)
 		{
 			Executed = true;
+		}
+	}
+
+	public class TestCommand3:Command
+	{
+		[Inject (Default = typeof(TestClass))]
+		public ITestClass TestClassInstance;
+
+		public override void Execute (InvokerArgs args)
+		{
+
 		}
 	}
 
