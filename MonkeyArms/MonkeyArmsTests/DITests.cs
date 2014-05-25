@@ -107,6 +107,7 @@ namespace MonkeyArmsTests
 			var testCommand = new TestCommand3 ();
 			DIUtil.InjectProps (testCommand);
 			testCommand.TestClassInstance.ShouldBeType<TestClass> ();
+			testCommand.Invoker.ShouldNotBeNull ();
 		}
 	}
 	/*
@@ -148,6 +149,12 @@ namespace MonkeyArmsTests
 	{
 		[Inject (Default = typeof(TestClass))]
 		public ITestClass TestClassInstance;
+		[Inject (Default = typeof(TestClass))]
+		public ITestClass TestClassInstance2;
+		[Inject]
+		public TestPM PM;
+		[Inject]
+		public TestInvoker Invoker;
 
 		public override void Execute (InvokerArgs args)
 		{
