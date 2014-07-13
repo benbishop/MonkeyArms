@@ -1,6 +1,7 @@
 using MonkeyArms;
 using NUnit.Framework;
 using Should;
+using System;
 
 namespace MonkeyArmsTests
 {
@@ -109,6 +110,14 @@ namespace MonkeyArmsTests
 			testCommand.TestClassInstance.ShouldBeType<TestClass> ();
 			testCommand.Invoker.ShouldNotBeNull ();
 		}
+
+		[Test]
+		public void TestMustBeSingletonAttribute ()
+		{
+			Assert.Throws<ArgumentException> (() => DI.Get<MustBeSingletonClass> ());
+			DI.MapSingleton<MustBeSingletonClass> ();
+			Assert.DoesNotThrow (() => DI.Get<MustBeSingletonClass> ());
+		}
 	}
 	/*
          * Test Classes
@@ -172,5 +181,11 @@ namespace MonkeyArmsTests
 		public void DoSomething ()
 		{
 		}
+	}
+
+	[MustBeSingleton]
+	public class MustBeSingletonClass
+	{
+
 	}
 }
