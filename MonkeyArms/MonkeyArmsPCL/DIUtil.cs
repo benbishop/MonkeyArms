@@ -25,7 +25,7 @@ namespace MonkeyArms
 
 				//TODO: Look into adding a warning if an inject prop is private or protected
 
-				foreach (Attribute attr in attrs) {
+				foreach (InjectAttribute attr in attrs) {
 					if (map == null || !map.HasTypeMapped (GetMemberInfoType (memberInfo))) {
 
 
@@ -47,7 +47,7 @@ namespace MonkeyArms
 							valueToInject = null;
 						}
 
-						if (valueToInject == null && (attr as InjectAttribute).Default == null) {
+						if (valueToInject == null && attr.Default == null) {
 							throw(new ArgumentException ("Inject target type was not found. Did you forget to register it with DI?"));
 						} else if (valueToInject == null && (attr as InjectAttribute).Default != null) {
 							AssignValueToTarget (target, memberInfo, Activator.CreateInstance ((attr as InjectAttribute).Default));
@@ -110,5 +110,10 @@ namespace MonkeyArms
 
 	public interface IInjectingTarget
 	{
+	}
+
+	public interface IIoCContainer
+	{
+		TGet Get<TGet> () where TGet : class;
 	}
 }
