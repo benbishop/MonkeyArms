@@ -2,6 +2,7 @@ using MonkeyArms;
 using NUnit.Framework;
 using System;
 using Should;
+using System.Dynamic;
 
 namespace MonkeyArmsTests
 {
@@ -13,7 +14,10 @@ namespace MonkeyArmsTests
 		{
 			DI.MapMediatorToClass<TestMediator, TestMediatorTarget> ();
 			var target = new TestMediatorTarget ();
-			DI.RequestMediator (target).ShouldNotBeNull ();
+			var mediator = DI.RequestMediator (target);
+			mediator.ShouldNotBeNull ();
+			mediator.Target.ShouldEqual (target);
+
 		}
 
 		[Test (Description = "Assert request mediator invokes Registor on Mediator")]
@@ -113,21 +117,28 @@ namespace MonkeyArmsTests
 
 		public class TestMediator : Mediator
 		{
+
 			[Inject]
-			// ReSharper disable once InconsistentNaming
-            public TestPM PM;
+			public TestPM PM;
 			public bool RegisterInvoked = false;
 			public bool UnregisterInvoked = false;
-			protected ITestTargetInteface Target;
 
-			public TestMediator (IMediatorTarget target)
-                : base (target)
+			public new TestMediatorTarget Target {
+				get {
+					return (TestMediatorTarget)base.Target;
+				}
+			}
+
+
+			public TestMediator ()
 			{
-				Target = target as ITestTargetInteface;
+
 			}
 
 			public override void Register ()
 			{
+				Target.ShouldNotBeNull ();
+				Target.ShouldBeType<TestMediatorTarget> ();
 				RegisterInvoked = true;
 			}
 

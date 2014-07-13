@@ -124,7 +124,9 @@ namespace MonkeyArms
 
 		private static Mediator CreateMediator (IMediatorTarget target, Type targetType)
 		{
-			var m = (Mediator)Activator.CreateInstance (ClassMediatorMappings [targetType], target);
+			var m = (Mediator)Activator.CreateInstance (ClassMediatorMappings [targetType]);
+			m.Target = target;
+
 			DIUtil.InjectProps (m);
 			MediatorAssignments [target] = m;
 			m.Register ();
