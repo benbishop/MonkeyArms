@@ -7,6 +7,7 @@ namespace MonkeyArms
 	public class InjectAttribute : Attribute
 	{
 		public Type Default;
+		public string Name;
 	}
 
 	public class DIUtil
@@ -41,9 +42,11 @@ namespace MonkeyArms
 						//Checking if value was found
 						object valueToInject;
 						//If this throws an exception there is probably a child Inject prop that is not registered
+
 						try {
-							valueToInject = methodInfo.Invoke (null, null);
-						} catch {
+							valueToInject = methodInfo.Invoke (null, new object[]{ attr.Name });
+						} catch (Exception e) {
+
 							valueToInject = null;
 						}
 

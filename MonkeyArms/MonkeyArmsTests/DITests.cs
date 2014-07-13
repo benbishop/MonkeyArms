@@ -1,6 +1,7 @@
 using MonkeyArms;
 using NUnit.Framework;
 using Should;
+using System;
 
 namespace MonkeyArmsTests
 {
@@ -73,7 +74,7 @@ namespace MonkeyArmsTests
 		}
 
 		[Test (Description = "Assert MapInstanceToSingleton returns instance of TestPM passed to it")]
-		public void TestMapInstanceToSingleTon ()
+		public void TestMapInstanceToSingleton ()
 		{
 			DI.MapSingleton<TestPM> ();
 			var pm = new TestPM ();
@@ -82,7 +83,7 @@ namespace MonkeyArmsTests
 		}
 
 		[Test (Description = "Assert MapInstanceToSingleton does not return previous instance of TestPM passed to it")]
-		public void TestMapInstanceToSingleTonDoesNotReturnPreviousSignleton ()
+		public void TestMapInstanceToSingleton_Overwrites ()
 		{
 			DI.MapSingleton<TestPM> ();
 			// ReSharper disable once InconsistentNaming
@@ -92,23 +93,68 @@ namespace MonkeyArmsTests
 		}
 
 		[Test (Description = "Assert MapInstanceToSingleton does not return previous instance of TestPM passed to it after UnMapInstanceFromSingleton is invoked")]
-		public void TestMapInstanceToSingleTonDoesNotReturnPreviousSignletonAferUnMapInstanceToSingletonIsInvoiked ()
+		public void TestMapInstanceToSingleTonDoesNotReturnPreviousSignletonAferUnMapInstanceToSingletonIsInvoked ()
 		{
-			// ReSharper disable once InconsistentNaming
+
 			var origPM = new TestPM ();
 			DI.MapInstanceToSingleton<TestPM> (new TestPM ());
 			DI.UnMapInstanceFromSingleton<TestPM> ();
 			origPM.ShouldNotEqual (DI.Get<TestPM> ());
 		}
 
-		[Test]
-		public void TestDefaultPropertyOfInjectAttribute ()
+		[Test (Description = "Assert standards Inject attribute with no properties works.")]
+		public void TestStandardInjection ()
 		{
-			var testCommand = new TestCommand3 ();
+
+
+			var testCommand = new CommandWithStandardInjections ();
 			DIUtil.InjectProps (testCommand);
-			testCommand.TestClassInstance.ShouldBeType<TestClass> ();
+			testCommand.PM.ShouldNotBeNull ();
 			testCommand.Invoker.ShouldNotBeNull ();
 		}
+
+		[Test (Description = "Assert Inject attribute with Default specified works.")]
+		public void TestDefaultInjection ()
+		{
+			var testCommand = new CommandWithDefaultInjections ();
+			DIUtil.InjectProps (testCommand);
+			testCommand.DefaultClassInstance1.ShouldBeType<TestClass> ();
+
+
+
+		}
+
+
+
+		[Test (Description = "Assert Inject attribute with Name property works.")]
+		public void TestNamedInjection ()
+		{
+			var testInstance = new TestClass ();
+			var testCommand = new CommandWithNamedInjections ();
+
+			Assert.Throws<ArgumentException> (() => DIUtil.InjectProps (testCommand));
+
+			DI.MapSingletonInstanceByName<TestClass> ("myTestName", testInstance);
+			//also testing same name but different class types
+			var testPMInstance = new TestPM ();
+			DI.MapSingletonInstanceByName <TestPM> ("myTestName", testPMInstance);
+			DIUtil.InjectProps (testCommand);
+			testCommand.NamedClassInstance.ShouldEqual (testInstance);
+			testCommand.TestPM.ShouldEqual (testPMInstance);
+
+		}
+
+		[Test (Description = "Assert Inject attribute with does not work after name is unmapped.")]
+		public void TestNamedInjection_whenNameUnMapped ()
+		{
+			var testInstance = new TestClass ();
+			var testCommand = new CommandWithNamedInjections ();
+			DI.MapSingletonInstanceByName<TestClass> ("myTestName", testInstance);
+			DI.UnMapSingletonInstanceByName<TestClass> ("myTestName");
+			Assert.Throws<ArgumentException> (() => DIUtil.InjectProps (testCommand));
+
+		}
+
 	}
 	/*
          * Test Classes
@@ -145,16 +191,42 @@ namespace MonkeyArmsTests
 		}
 	}
 
-	public class TestCommand3:Command
+	public class CommandWithStandardInjections:Command
 	{
-		[Inject (Default = typeof(TestClass))]
-		public ITestClass TestClassInstance;
-		[Inject (Default = typeof(TestClass))]
-		public ITestClass TestClassInstance2;
 		[Inject]
 		public TestPM PM;
 		[Inject]
 		public TestInvoker Invoker;
+
+		public override void Execute (InvokerArgs args)
+		{
+
+		}
+	}
+
+	public class CommandWithDefaultInjections:Command
+	{
+		[Inject (Default = typeof(TestClass))]
+		public ITestClass DefaultClassInstance1;
+		[Inject (Default = typeof(TestClass))]
+		public ITestClass DefaultClassInstance2;
+
+
+
+
+		public override void Execute (InvokerArgs args)
+		{
+
+		}
+	}
+
+	public class CommandWithNamedInjections:Command
+	{
+		[Inject (Name = "myTestName")]
+		public TestClass NamedClassInstance;
+
+		[Inject (Name = "myTestName")]
+		public TestPM TestPM;
 
 		public override void Execute (InvokerArgs args)
 		{

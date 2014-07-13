@@ -7,7 +7,8 @@ namespace MonkeyArms
 	public static class DI
 	{
 		private static readonly TinyIoCContainer Injector = new TinyIoCContainer ();
-		private static readonly Dictionary<Type, object> Instances = new Dictionary<Type, object> ();
+		private static readonly Dictionary<Type, object> InstanceByTypeMap = new Dictionary<Type, object> ();
+		private static readonly Dictionary<string, object> InstanceByNameMap = new Dictionary<string, object> ();
 		private static readonly List<Type> Singletons = new List<Type> ();
 
 		public static void MapSingleton<TSingleton> ()
@@ -32,9 +33,20 @@ namespace MonkeyArms
 			Singletons.Remove (typeof(TSingleton));
 		}
 
+		public static void MapSingletonInstanceByName<TSingleton> (string name, object instance) where TSingleton:class
+		{
+
+			InstanceByNameMap [GetTypeNameKey<TSingleton> (name)] = instance;
+		}
+
+		public static void UnMapSingletonInstanceByName<TSingleton> (string name) where TSingleton:class
+		{
+			InstanceByNameMap.Remove (GetTypeNameKey<TSingleton> (name));
+		}
+
 		public static void MapInstanceToSingleton<TSingleton> (object instance)
 		{
-			Instances [typeof(TSingleton)] = instance;
+			InstanceByTypeMap [typeof(TSingleton)] = instance;
 			if (!IsTypeSingleton (typeof(TSingleton))) {
 				Singletons.Add (typeof(TSingleton));
 			}
@@ -47,8 +59,8 @@ namespace MonkeyArms
 
 		public static void UnMapInstanceFromSingleton<TSingleton> ()
 		{
-			if (Instances.ContainsKey (typeof(TSingleton))) {
-				Instances.Remove (typeof(TSingleton));
+			if (InstanceByTypeMap.ContainsKey (typeof(TSingleton))) {
+				InstanceByTypeMap.Remove (typeof(TSingleton));
 			}
 		}
 
@@ -141,13 +153,20 @@ namespace MonkeyArms
 		/*
 		 * Standard Get method
 		 */
-		public static TGet Get<TGet> ()
+		public static TGet Get<TGet> (string name = null)
             where TGet : class
 		{
+
+			var classKeyName = GetTypeNameKey<TGet> (name);
+			if (name != null && InstanceByNameMap.ContainsKey (classKeyName)) {
+				return InstanceByNameMap [classKeyName] as TGet;
+			} else if (name != null && !InstanceByNameMap.ContainsKey (classKeyName)) {
+				throw (new ArgumentException ("Target name cannot be resolved: " + classKeyName));
+			}
 			//TODO: Look into inspecting constructor arguments
 			var t = typeof(TGet);
-			if (Instances.ContainsKey (typeof(TGet))) {
-				return Instances [typeof(TGet)] as TGet;
+			if (InstanceByTypeMap.ContainsKey (typeof(TGet))) {
+				return InstanceByTypeMap [typeof(TGet)] as TGet;
 			}
 
 			if (!Injector.CanResolve<TGet> ()) {
@@ -155,6 +174,11 @@ namespace MonkeyArms
 			}
 
 			return Injector.Resolve<TGet> ();
+		}
+
+		private static string GetTypeNameKey<TType> (string name) where TType:class
+		{
+			return string.Format ("{0}_{1}", name, typeof(TType).FullName);
 		}
 	}
 }
