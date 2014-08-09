@@ -41,12 +41,6 @@
   <ItemGroup>
     <Compile Include="IOSInvokerMap.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MonkeyArmsPCL\MonkeyArmsPCL.csproj">
-      <Project>{34A1EC23-442A-42B9-9A33-8A8D9406F553}</Project>
-      <Name>MonkeyArmsPCL</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
       <Properties>
@@ -56,4 +50,10 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MindrMobile\MonkeyArms\MonkeyArms.csproj">
+      <Project>{3097EC8A-59D0-455E-B6D5-849B8FB34A03}</Project>
+      <Name>MonkeyArms</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
