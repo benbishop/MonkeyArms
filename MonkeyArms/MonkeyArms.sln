@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyArmsTests", "MonkeyArmsTests\MonkeyArmsTests.csproj", "{3137AFE4-1EF7-4509-B428-3148F2D0B2A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyArms.Core.Tests", "MonkeyArmsTests\MonkeyArms.Core.Tests.csproj", "{3137AFE4-1EF7-4509-B428-3148F2D0B2A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOSTests", "iOSTests\iOSTests.csproj", "{CD7DC581-5AFB-4078-BD0C-A7D3A7A21D39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyArms.IOS.Tests", "iOSTests\MonkeyArms.IOS.Tests.csproj", "{CD7DC581-5AFB-4078-BD0C-A7D3A7A21D39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyArmsIOS", "MonkeyArmsIOS\MonkeyArmsIOS.csproj", "{F3839112-5C4A-458C-9296-457E723AB232}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyArms.IOS", "MonkeyArmsIOS\MonkeyArms.IOS.csproj", "{F3839112-5C4A-458C-9296-457E723AB232}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyArmsAndroid", "MonkeyArmsAndroid\MonkeyArmsAndroid.csproj", "{F7218AC6-F1C9-4C56-9D95-E671FE3F4AD6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyArms.Android", "MonkeyArmsAndroid\MonkeyArms.Android.csproj", "{F7218AC6-F1C9-4C56-9D95-E671FE3F4AD6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyArms.Core", "MonkeyArms.Core\MonkeyArms.Core.csproj", "{589DECC6-C6BC-4F43-A596-C3DD38FFB97B}"
 EndProject
@@ -147,7 +147,7 @@ Global
 		{F7218AC6-F1C9-4C56-9D95-E671FE3F4AD6}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = MonkeyArmsTests\MonkeyArmsTests.csproj
+		StartupItem = MonkeyArmsTests\MonkeyArms.Core.Tests.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

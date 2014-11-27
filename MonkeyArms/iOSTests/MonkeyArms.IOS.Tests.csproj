@@ -97,9 +97,9 @@
       <Project>{589DECC6-C6BC-4F43-A596-C3DD38FFB97B}</Project>
       <Name>MonkeyArms.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MonkeyArmsIOS\MonkeyArmsIOS.csproj">
+    <ProjectReference Include="..\MonkeyArmsIOS\MonkeyArms.IOS.csproj">
       <Project>{F3839112-5C4A-458C-9296-457E723AB232}</Project>
-      <Name>MonkeyArmsIOS</Name>
+      <Name>MonkeyArms.IOS</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
