@@ -4,6 +4,11 @@ using TinyIoC;
 
 namespace MonkeyArms
 {
+	public class MustBeSingletonAttribute : Attribute
+	{
+
+	}
+
 	public static class DI
 	{
 		private static readonly TinyIoCContainer Injector = new TinyIoCContainer ();
@@ -144,8 +149,14 @@ namespace MonkeyArms
 		public static TGet Get<TGet> ()
             where TGet : class
 		{
-			//TODO: Look into inspecting constructor arguments
 			var t = typeof(TGet);
+
+			if (MustBeSingleton (t) && !IsTypeSingleton (t)) {
+				throw (new ArgumentException ("Target type must be mapped as singleton: " + t.FullName));
+			}
+
+			//TODO: Look into inspecting constructor arguments
+
 			if (Instances.ContainsKey (typeof(TGet))) {
 				return Instances [typeof(TGet)] as TGet;
 			}
@@ -155,6 +166,15 @@ namespace MonkeyArms
 			}
 
 			return Injector.Resolve<TGet> ();
+		}
+
+		private static bool MustBeSingleton (Type t)
+		{
+			// Get instance of the attribute.
+			MustBeSingletonAttribute MustAttribute =
+				(MustBeSingletonAttribute)Attribute.GetCustomAttribute (t, typeof(MustBeSingletonAttribute));
+
+			return MustAttribute != null;
 		}
 	}
 }
