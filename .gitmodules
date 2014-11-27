@@ -1,0 +1,3 @@
+[submodule "TinyIoC"]
+	path = TinyIoC
+	url = https://github.com/grumpydev/TinyIoC.git

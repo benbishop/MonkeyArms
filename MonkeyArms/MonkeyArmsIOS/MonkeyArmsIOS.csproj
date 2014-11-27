@@ -38,6 +38,7 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
     <Compile Include="IOSInvokerMap.cs" />
   </ItemGroup>
@@ -51,9 +52,9 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MindrMobile\MonkeyArms\MonkeyArms.csproj">
-      <Project>{3097EC8A-59D0-455E-B6D5-849B8FB34A03}</Project>
-      <Name>MonkeyArms</Name>
+    <ProjectReference Include="..\MonkeyArms.Core\MonkeyArms.Core.csproj">
+      <Project>{589DECC6-C6BC-4F43-A596-C3DD38FFB97B}</Project>
+      <Name>MonkeyArms.Core</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

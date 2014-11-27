@@ -8,6 +8,7 @@
     <RootNamespace>MonkeyArmsTests</RootNamespace>
     <AssemblyName>MonkeyArmsTests</AssemblyName>
     <UseMSBuildEngine>False</UseMSBuildEngine>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,12 +51,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\MonkeyArmsPCL\MonkeyArmsPCL.csproj">
-      <Project>{34A1EC23-442A-42B9-9A33-8A8D9406F553}</Project>
-      <Name>MonkeyArmsPCL</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\MonkeyArms.Core\MonkeyArms.Core.csproj">
+      <Project>{589DECC6-C6BC-4F43-A596-C3DD38FFB97B}</Project>
+      <Name>MonkeyArms.Core</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

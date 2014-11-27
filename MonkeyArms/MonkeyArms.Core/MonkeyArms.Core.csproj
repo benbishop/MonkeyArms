@@ -1,13 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{34A1EC23-442A-42B9-9A33-8A8D9406F553}</ProjectGuid>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{589DECC6-C6BC-4F43-A596-C3DD38FFB97B}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>MonkeyArms</RootNamespace>
-    <AssemblyName>MonkeyArms</AssemblyName>
+    <RootNamespace>MonkeyArms.Core</RootNamespace>
+    <AssemblyName>MonkeyArms.Core</AssemblyName>
     <TargetFrameworkProfile>Profile158</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
@@ -30,17 +30,29 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Actor.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="DI.cs" />
     <Compile Include="DIUtil.cs" />
-    <Compile Include="Invoker.cs" />
-    <Compile Include="Mediator.cs" />
-    <Compile Include="InvokerMap.cs" />
-    <Compile Include="InvokerChain.cs" />
     <Compile Include="InjectionMap.cs" />
+    <Compile Include="Invoker.cs" />
+    <Compile Include="InvokerChain.cs" />
+    <Compile Include="InvokerMap.cs" />
+    <Compile Include="Mediator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="TinyIOC">
+      <HintPath>..\packages\MonkeyArms.1.0.20\lib\TinyIOC.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MonkeyArms\" />
+  </ItemGroup>
 </Project>

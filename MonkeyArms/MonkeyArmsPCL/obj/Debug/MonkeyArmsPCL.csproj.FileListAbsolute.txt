@@ -1,5 +1,0 @@
-C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsPCL\bin\Debug\TinyIOC.dll
-C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsPCL\bin\Debug\MonkeyArms.dll
-C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsPCL\bin\Debug\MonkeyArms.pdb
-C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsPCL\obj\Debug\MonkeyArms.dll
-C:\Users\Bill\Documents\GitHub\MonkeyArms\MonkeyArms\MonkeyArmsPCL\obj\Debug\MonkeyArms.pdb

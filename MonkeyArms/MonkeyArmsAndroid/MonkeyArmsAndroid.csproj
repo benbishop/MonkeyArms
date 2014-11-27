@@ -13,7 +13,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>MonkeyArmsAndroid</AssemblyName>
-    <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.4.87</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,9 +63,9 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup>
-    <ProjectReference Include="..\MonkeyArmsPCL\MonkeyArmsPCL.csproj">
-      <Project>{34A1EC23-442A-42B9-9A33-8A8D9406F553}</Project>
-      <Name>MonkeyArmsPCL</Name>
+    <ProjectReference Include="..\MonkeyArms.Core\MonkeyArms.Core.csproj">
+      <Project>{589DECC6-C6BC-4F43-A596-C3DD38FFB97B}</Project>
+      <Name>MonkeyArms.Core</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
