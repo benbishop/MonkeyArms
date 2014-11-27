@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MonkeyArms</RootNamespace>
     <AssemblyName>MonkeyArms</AssemblyName>
-    <TargetFrameworkProfile>Profile136</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Profile158</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -41,10 +41,6 @@
     <Compile Include="InvokerMap.cs" />
     <Compile Include="InvokerChain.cs" />
     <Compile Include="InjectionMap.cs" />
-    <Compile Include="TinyIoC.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
 </Project>
