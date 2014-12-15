@@ -3,53 +3,74 @@ using System.Collections.Generic;
 
 namespace MonkeyArms
 {
-	public class InvokerMap
+	public interface IInvokerMap
 	{
-		protected Dictionary<IInvoker, List<EventHandler>> Map = new Dictionary<IInvoker, List<EventHandler>> ();
+		bool IsInvokerMapped(IInvoker targetInvoker);
 
-		public bool IsInvokerMapped (IInvoker targetInvoker)
+		bool InvokerHasHandler(IInvoker targetInvoker, EventHandler handlerFunction);
+
+		void Add(IInvoker targetInvoker, EventHandler handlerFunction, object handlerHost = null);
+
+		void Remove(Invoker targetInvoker, EventHandler handlerFunction);
+
+		void RemoveAll();
+
+		int GetInvokerHandlerCount(Invoker targetInvoker);
+	}
+
+	public class InvokerMap:IInvokerMap
+	{
+		protected Dictionary<IInvoker, List<EventHandler>> Map = new Dictionary<IInvoker, List<EventHandler>>();
+
+		public bool IsInvokerMapped(IInvoker targetInvoker)
 		{
-			return Map.ContainsKey (targetInvoker);
+			return Map.ContainsKey(targetInvoker);
 		}
 
-		public bool InvokerHasHandler (IInvoker targetInvoker, EventHandler handlerFunction)
+		public bool InvokerHasHandler(IInvoker targetInvoker, EventHandler handlerFunction)
 		{
-			return (IsInvokerMapped (targetInvoker) && Map [targetInvoker].Contains (handlerFunction));
+			return (IsInvokerMapped(targetInvoker) && Map[targetInvoker].Contains(handlerFunction));
 		}
 
-		public virtual void Add (IInvoker targetInvoker, EventHandler handlerFunction, object handlerHost = null)
+		public virtual void Add(IInvoker targetInvoker, EventHandler handlerFunction, object handlerHost = null)
 		{
-			if (!IsInvokerMapped (targetInvoker)) {
-				Map [targetInvoker] = new List<EventHandler> ();
+			if (!IsInvokerMapped(targetInvoker))
+			{
+				Map[targetInvoker] = new List<EventHandler>();
 			}
-			if (!InvokerHasHandler (targetInvoker, handlerFunction)) {
-				Map [targetInvoker].Add (handlerFunction);
+			if (!InvokerHasHandler(targetInvoker, handlerFunction))
+			{
+				Map[targetInvoker].Add(handlerFunction);
 				targetInvoker.Invoked += handlerFunction;
 			}
 		}
 
-		public void Remove (Invoker targetInvoker, EventHandler handlerFunction)
+		public void Remove(Invoker targetInvoker, EventHandler handlerFunction)
 		{
-			if (Map.ContainsKey (targetInvoker) && Map [targetInvoker].Contains (handlerFunction)) {
-				Map [targetInvoker].Remove (handlerFunction);
+			if (Map.ContainsKey(targetInvoker) && Map[targetInvoker].Contains(handlerFunction))
+			{
+				Map[targetInvoker].Remove(handlerFunction);
 				targetInvoker.Invoked -= handlerFunction;
 			}
 		}
 
-		public void RemoveAll ()
+		public void RemoveAll()
 		{
-			foreach (var keyValuePair in Map) {
-				foreach (var eventHandler in keyValuePair.Value) {
+			foreach (var keyValuePair in Map)
+			{
+				foreach (var eventHandler in keyValuePair.Value)
+				{
 					keyValuePair.Key.Invoked -= eventHandler;
 				}
-				keyValuePair.Value.RemoveAll (e => true);
+				keyValuePair.Value.RemoveAll(e => true);
 			}
 		}
 
-		public int GetInvokerHandlerCount (Invoker targetInvoker)
+		public int GetInvokerHandlerCount(Invoker targetInvoker)
 		{
-			if (Map.ContainsKey (targetInvoker)) {
-				return Map [targetInvoker].Count;
+			if (Map.ContainsKey(targetInvoker))
+			{
+				return Map[targetInvoker].Count;
 			}
 			return 0;
 		}

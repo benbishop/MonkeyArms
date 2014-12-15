@@ -2,23 +2,24 @@ namespace MonkeyArms
 {
 	public abstract class Mediator : IInjectingTarget
 	{
-		protected InvokerMap InvokerMap = new InvokerMap ();
+		[Inject(Default = typeof(InvokerMap))]
+		public IInvokerMap InvokerMap;
 
 		// ReSharper disable once UnusedParameter.Local
-		protected Mediator (IMediatorTarget target)
+		protected Mediator(IMediatorTarget target)
 		{
 		}
 
-		public abstract void Register ();
+		public abstract void Register();
 
-		public virtual void Unregister ()
+		public virtual void Unregister()
 		{
-			InvokerMap.RemoveAll ();
+			InvokerMap.RemoveAll();
 		}
 
-		public int GetInvokerMapHandlerCount (Invoker invoker)
+		public int GetInvokerMapHandlerCount(Invoker invoker)
 		{
-			return InvokerMap.GetInvokerHandlerCount (invoker);
+			return InvokerMap.GetInvokerHandlerCount(invoker);
 		}
 	}
 
